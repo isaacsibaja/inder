@@ -111,7 +111,7 @@ session_start();
   =            sidebar-collapse hace que el sidebar disminuya de tamano            =
   ======================================-->
 
-<body class="hold-transition skin-blue sidebar-collapse sidebar-mini login-page">
+<body class="hold-transition skin-blue sidebar-mini login-page">
 
 
   <?php
@@ -177,6 +177,7 @@ if (isset($_SESSION["iniciarSesion"]) && $_SESSION["iniciarSesion"] == "ok") {
 <script src="vistas/js/plantilla.js"></script>
 <script src="vistas/js/usuarios.js"></script>
 <script src="vistas/js/clientes.js"></script>
+<script src="vistas/js/estados.js"></script>
 
 </body>
 </html>

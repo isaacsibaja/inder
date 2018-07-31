@@ -206,7 +206,7 @@ MODAL AGREGAR CLIENTE
 
                 <span class="input-group-addon"><i class="fa fa-phone"></i></span>
 
-                <input type="text" class="form-control input-lg" id="nuevoTelefono" name="nuevoTelefono" placeholder="Ingresar teléfono fijo" data-inputmask="'mask':'(506) 9999-9999'" data-mask>
+                <input type="text" class="form-control input-lg" id="nuevoTelefono" name="nuevoTelefono" placeholder="Ingresar teléfono fijo" data-inputmask="'mask':'9999-9999'" data-mask>
 
               </div>
 
@@ -221,7 +221,7 @@ MODAL AGREGAR CLIENTE
 
                 <span class="input-group-addon"><i class="fa fa-mobile-phone"></i></span>
 
-                <input type="text" class="form-control input-lg" id="nuevoTelefono2" name="nuevoTelefono2" placeholder="Ingresar teléfono móvil" data-inputmask="'mask':'(506) 9999-9999'" data-mask>
+                <input type="text" class="form-control input-lg" id="nuevoTelefono2" name="nuevoTelefono2" placeholder="Ingresar teléfono móvil" data-inputmask="'mask':'9999-9999'" data-mask>
 
               </div>
 
@@ -382,7 +382,7 @@ MODAL EDITAR CLIENTE
 
                 <span class="input-group-addon"><i class="fa fa-phone"></i></span>
 
-                <input type="text" class="form-control input-lg" name="editarTelefono" id="editarTelefono" data-inputmask="'mask':'(506) 9999-9999'" data-mask placeholder="Editar Teléfono Fijo">
+                <input type="text" class="form-control input-lg" name="editarTelefono" id="editarTelefono" data-inputmask="'mask':'9999-9999'" data-mask placeholder="Editar Teléfono Fijo">
 
               </div>
 
@@ -396,7 +396,7 @@ MODAL EDITAR CLIENTE
 
                 <span class="input-group-addon"><i class="fa fa-mobile-phone"></i></span>
 
-                <input type="text" class="form-control input-lg" name="editarTelefono2" id="editarTelefono2" data-inputmask="'mask':'(506) 9999-9999'" data-mask placeholder="Editar Teléfono Móvil">
+                <input type="text" class="form-control input-lg" name="editarTelefono2" id="editarTelefono2" data-inputmask="'mask':'9999-9999'" data-mask placeholder="Editar Teléfono Móvil">
 
               </div>
 

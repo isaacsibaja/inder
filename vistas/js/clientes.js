@@ -79,7 +79,7 @@ function registroCliente(){
 
 	if (telefono != "") {
 
-		var expresion  = /^[()\-0-9 ]+$/;
+		var expresion  = /^[()\0-9 ]+$/;
 
 		if (!expresion.test(telefono)) {
 
@@ -98,7 +98,7 @@ function registroCliente(){
 
 	if (telefono2 != "") {
 
-		var expresion  = /^[()\-0-9 ]+$/;
+		var expresion  = /^[()\0-9 ]+$/;
 
 		if (!expresion.test(telefono2)) {
 
@@ -121,7 +121,7 @@ function registroCliente(){
 
 		if (!expresion.test(direccion)) {
 
-			$("#nuevaDireccion").parent().before('<div class="alert alert-warning"><strong>ERROR: </strong>No se permiten espacios ni caractéres especiales en la dirección.</div>');
+			$("#nuevaDireccion").parent().before('<div class="alert alert-warning"><strong>ERROR: </strong>No se permiten caractéres especiales en la dirección.</div>');
 		
 			return false;
 		}
@@ -142,7 +142,7 @@ function registroCliente(){
 
 	if (fechaNacimiento != "") {
 
-		var expresion  = /^[()\-0-9 ]+$/;
+		var expresion  = /^[()\0-9 ]+$/;
 
 		if (!expresion.test(fechaNacimiento)) {
 
@@ -257,7 +257,7 @@ function modificarCliente(){
 
 	if (telefono != "") {
 
-		var expresion  = /^[()\-0-9 ]+$/;
+		var expresion  = /^[()\0-9 ]+$/;
 
 		if (!expresion.test(telefono)) {
 
@@ -276,7 +276,7 @@ function modificarCliente(){
 
 	if (telefono2 != "") {
 
-		var expresion  = /^[()\-0-9 ]+$/;
+		var expresion  = /^[()\0-9 ]+$/;
 
 		if (!expresion.test(telefono2)) {
 
@@ -299,7 +299,7 @@ function modificarCliente(){
 
 		if (!expresion.test(direccion)) {
 
-			$("#editarDireccion").parent().before('<div class="alert alert-warning"><strong>ERROR: </strong>No se permiten espacios ni caractéres especiales en la dirección.</div>');
+			$("#editarDireccion").parent().before('<div class="alert alert-warning"><strong>ERROR: </strong>No se permiten caractéres especiales en la dirección.</div>');
 		
 			return false;
 		}
@@ -320,7 +320,7 @@ function modificarCliente(){
 
 	if (fechaNacimiento != "") {
 
-		var expresion  = /^[()\-0-9 ]+$/;
+		var expresion  = /^[()\0-9 ]+$/;
 
 		if (!expresion.test(fechaNacimiento)) {
 
@@ -343,7 +343,7 @@ function modificarCliente(){
 
 		if (!expresion.test(observacion)) {
 
-			$("#editarObservacion").parent().before('<div class="alert alert-warning"><strong>ERROR: </strong>No se permiten espacios ni caractéres especiales en la observación.</div>');
+			$("#editarObservacion").parent().before('<div class="alert alert-warning"><strong>ERROR: </strong>No se permiten caractéres especiales en la observación.</div>');
 		
 			return false;
 		}
