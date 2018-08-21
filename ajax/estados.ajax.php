@@ -23,6 +23,23 @@ class AjaxEstados
         echo json_encode($respuesta);
 
     }
+
+    /*=============================================
+    ACTIVAR COLORES EN EL ESTADO
+    =============================================*/
+
+    public function ajaxValidarColor()
+    {
+
+        $item  = "estados";
+        $valor = $this->idEstado;
+
+        $respuesta = ControladorEstados::ctrMostrarEstados($item, $valor);
+
+        echo json_encode($respuesta);
+
+    }
+
 }
 
 /*=============================================
@@ -33,4 +50,17 @@ if (isset($_POST["idEstado"])) {
     $estado           = new AjaxEstados();
     $estado->idEstado = $_POST["idEstado"];
     $estado->ajaxEditarEstados();
+}
+
+/*=============================================
+VALIDAR COLOR DEL ESTADO
+=============================================*/
+
+if (isset($_POST["colorpicker"])) {
+
+    $color              = new AjaxEstados();
+    $color->idEstado    = $_POST["idEstado"];
+    $color->colorpicker = $_POST["colorpicker"];
+    $color->ajaxValidarColor();
+
 }

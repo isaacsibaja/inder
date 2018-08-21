@@ -68,9 +68,9 @@ if ($_SESSION["foto"] != "") {
 			</li>
 
 			<li >
-				<a href="transmites">
+				<a href="tramites">
 					<i class="fa fa-folder-open"></i>
-					<span>Tránsmites</span>
+					<span>Tramites</span>
 				</a>
 			</li>
 

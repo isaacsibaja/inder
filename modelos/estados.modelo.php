@@ -6,15 +6,16 @@ class ModeloEstados
 {
 
     /*=============================================
-    CREAR CATEGORIA
+    CREAR ESTADO
     =============================================*/
 
     public static function mdlIngresarEstado($tabla, $datos)
     {
 
-        $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(estado) VALUES (:estado)");
+        $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(estado, color) VALUES (:estado, :color)");
 
-        $stmt->bindParam(":estado", $datos, PDO::PARAM_STR);
+        $stmt->bindParam(":estado", $datos["estado"], PDO::PARAM_STR);
+        $stmt->bindParam(":color", $datos["color"], PDO::PARAM_STR);
 
         if ($stmt->execute()) {
 
@@ -32,7 +33,7 @@ class ModeloEstados
     }
 
     /*=============================================
-    MOSTRAR CATEGORIAS
+    MOSTRAR ESTADO
     =============================================*/
 
     public static function mdlMostrarEstados($tabla, $item, $valor)
@@ -71,10 +72,11 @@ class ModeloEstados
     public static function mdlEditarEstado($tabla, $datos)
     {
 
-        $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET estado = :estado WHERE id = :id");
+        $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET estado = :estado, color = :color WHERE id = :id");
 
-        $stmt->bindParam(":estado", $datos["estado"], PDO::PARAM_STR);
         $stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
+        $stmt->bindParam(":estado", $datos["estado"], PDO::PARAM_STR);
+        $stmt->bindParam(":color", $datos["color"], PDO::PARAM_STR);
 
         if ($stmt->execute()) {
 

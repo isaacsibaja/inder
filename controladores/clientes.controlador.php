@@ -12,7 +12,7 @@ class ControladorClientes
 
         if (isset($_POST["nuevoCliente"])) {
 
-            if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoCliente"]) &&
+            if (preg_match('/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoCliente"]) &&
                 preg_match('/^[-a-zA-Z0-9]+$/', $_POST["nuevoDocumentoId"]) &&
                 preg_match('/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/', $_POST["nuevoEmail"]) &&
                 preg_match('/^[()\0-9 ]+$/', $_POST["nuevoTelefono"]) &&
@@ -37,22 +37,22 @@ class ControladorClientes
 
                     echo '<script>
 
-					swal({
-						  type: "success",
-						  title: "El cliente ha sido guardado correctamente",
-						  showConfirmButton: true,
-						  confirmButtonText: "Cerrar"
-						  }).then(function(result){
-									if (result.value) {
+                    swal({
+                          type: "success",
+                          title: "El cliente ha sido guardado correctamente",
+                          showConfirmButton: true,
+                          confirmButtonText: "Cerrar"
+                          }).then(function(result){
+                                    if (result.value) {
 
-									window.location = "clientes";
+                                    window.location = "clientes";
 
-									}else{
-										window.location = "clientes";
-									}
-								})
+                                    }else{
+                                        window.location = "clientes";
+                                    }
+                                })
 
-					</script>';
+                    </script>';
 
                 }
 
@@ -60,22 +60,22 @@ class ControladorClientes
 
                 echo '<script>
 
-					swal({
-						  type: "error",
-						  title: "¡El cliente no puede ir vacío o llevar caracteres especiales!",
-						  showConfirmButton: true,
-						  confirmButtonText: "Cerrar"
-						  }).then(function(result){
-							if (result.value) {
+                    swal({
+                          type: "error",
+                          title: "¡El cliente no puede ir vacío o llevar caracteres especiales!",
+                          showConfirmButton: true,
+                          confirmButtonText: "Cerrar"
+                          }).then(function(result){
+                            if (result.value) {
 
-							window.location = "clientes";
+                            window.location = "clientes";
 
-							}else{
-								window.location = "clientes";
-							}
-						})
+                            }else{
+                                window.location = "clientes";
+                            }
+                        })
 
-			  	</script>';
+                </script>';
 
             }
 
@@ -133,22 +133,22 @@ class ControladorClientes
 
                     echo '<script>
 
-					swal({
-						  type: "success",
-						  title: "El cliente ha sido cambiado correctamente",
-						  showConfirmButton: true,
-						  confirmButtonText: "Cerrar"
-						  }).then(function(result){
-									if (result.value) {
+                    swal({
+                          type: "success",
+                          title: "El cliente ha sido cambiado correctamente",
+                          showConfirmButton: true,
+                          confirmButtonText: "Cerrar"
+                          }).then(function(result){
+                                    if (result.value) {
 
-									window.location = "clientes";
+                                    window.location = "clientes";
 
-									}else{
-										window.location = "clientes";
-									}
-								})
+                                    }else{
+                                        window.location = "clientes";
+                                    }
+                                })
 
-					</script>';
+                    </script>';
 
                 }
 
@@ -156,20 +156,20 @@ class ControladorClientes
 
                 echo '<script>
 
-					swal({
-						  type: "error",
-						  title: "¡El cliente no puede ir vacío o llevar caracteres especiales!",
-						  showConfirmButton: true,
-						  confirmButtonText: "Cerrar"
-						  }).then(function(result){
-							if (result.value) {
+                    swal({
+                          type: "error",
+                          title: "¡El cliente no puede ir vacío o llevar caracteres especiales!",
+                          showConfirmButton: true,
+                          confirmButtonText: "Cerrar"
+                          }).then(function(result){
+                            if (result.value) {
 
-							window.location = "clientes";
+                            window.location = "clientes";
 
-							}
-						})
+                            }
+                        })
 
-			  	</script>';
+                </script>';
 
             }
 
@@ -195,23 +195,23 @@ class ControladorClientes
 
                 echo '<script>
 
-				swal({
-					  type: "success",
-					  title: "El cliente ha sido borrado correctamente",
-					  showConfirmButton: true,
-					  confirmButtonText: "Cerrar",
-					  closeOnConfirm: false
-					  }).then(function(result){
-								if (result.value) {
+                swal({
+                      type: "success",
+                      title: "El cliente ha sido borrado correctamente",
+                      showConfirmButton: true,
+                      confirmButtonText: "Cerrar",
+                      closeOnConfirm: false
+                      }).then(function(result){
+                                if (result.value) {
 
-								window.location = "clientes";
+                                window.location = "clientes";
 
-								}else{
-									window.location = "clientes";
-								}
-							})
+                                }else{
+                                    window.location = "clientes";
+                                }
+                            })
 
-				</script>';
+                </script>';
 
             }
 

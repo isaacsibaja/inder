@@ -20,7 +20,7 @@
       <!-- Default box -->
       <div class="box">
         <div class="box-header with-border">
-          <h3 class="box-title">Title</h3>
+          <h3 class="box-title">Labores del personal de OTHO</h3>
 
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -35,7 +35,7 @@
         </div>
         <!-- /.box-body -->
         <div class="box-footer">
-          Footer
+          Más Opciones
         </div>
         <!-- /.box-footer-->
       </div>

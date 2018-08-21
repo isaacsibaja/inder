@@ -1,4 +1,54 @@
 /*=============================================
+FUNCIÓN CUADRO DE COLOR
+=============================================*/
+
+$(".tablas").change(function(){
+
+	var idEstado = $(this).attr("idEstado");
+	var colorpicker = $(this).attr("colorpicker");
+
+	var datos = new FormData();
+	datos.append("idEstado", idEstado);
+  	datos.append("colorpicker", colorpicker);
+
+	$.ajax({
+
+	  url:"ajax/estados.ajax.php",
+	  method: "POST",
+	  data: datos,
+	  cache: false,
+      contentType: false,
+      processData: false,
+      success: function(respuesta){
+
+      }
+
+  	})
+
+
+	if (colorpicker == "#000000") {
+
+		$(this).addClass('btn-danger');
+  		$(this).html('Negro');
+
+	}
+
+
+
+	
+})
+
+
+
+
+
+
+
+
+
+
+
+/*=============================================
 	VALIDANDO INSERTAR ESTADO
 =============================================*/
 
@@ -24,6 +74,32 @@ function registroEstado(){
 	}else{
 
 		$("#nuevoEstado").parent().before('<div class="alert alert-warning"><strong>ATENCIÓN: </strong>Este campo es obligatorio</div>');
+		
+		return false;
+	}
+
+
+
+	/*=============================================
+	VALIDANDO EL COLOR PICKER 
+	=============================================*/
+
+	var color = $("#colorpicker").val();
+
+	if (color != "") {
+
+		var expresion  = /^[#a-zA-Z0-9]*$/;
+
+		if (!expresion.test(color)) {
+
+			$("#colorpicker").parent().before('<div class="alert alert-warning"><strong>ERROR: </strong>El color debe de tener este fomato, ejemplo #000000</div>');
+		
+			return false;
+		}
+
+	}else{
+
+		$("#colorpicker").parent().before('<div class="alert alert-warning"><strong>ATENCIÓN: </strong>Este campo es obligatorio</div>');
 		
 		return false;
 	}
@@ -61,6 +137,30 @@ function ModificarEstado(){
 		return false;
 	}
 
+	/*=============================================
+	VALIDANDO EL COLOR PICKER 
+	=============================================*/
+
+	var color = $("#editarColorpicker").val();
+
+	if (color != "") {
+
+		var expresion  = /^[#a-zA-Z0-9]*$/;
+
+		if (!expresion.test(color)) {
+
+			$("#editarColorpicker").parent().before('<div class="alert alert-warning"><strong>ERROR: </strong>El color debe de tener este fomato, ejemplo #000000</div>');
+		
+			return false;
+		}
+
+	}else{
+
+		$("#editarColorpicker").parent().before('<div class="alert alert-warning"><strong>ATENCIÓN: </strong>Este campo es obligatorio</div>');
+		
+		return false;
+	}
+
 }
 
 
@@ -85,6 +185,7 @@ $(".tablas").on("click", ".btnEditarEstado", function(){
      	success: function(respuesta){
 
      		$("#editarEstado").val(respuesta["estado"]);
+     		$("#editarColorpicker").val(respuesta["color"]);
      		$("#idEstado").val(respuesta["id"]);
 
      	}

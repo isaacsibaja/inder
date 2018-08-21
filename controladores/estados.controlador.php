@@ -12,11 +12,13 @@ class ControladorEstados
 
         if (isset($_POST["nuevoEstado"])) {
 
-            if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoEstado"])) {
+            if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoEstado"]) &&
+                preg_match('/^[#a-zA-Z0-9]+$/', $_POST["colorpicker"])) {
 
                 $tabla = "estados";
 
-                $datos = $_POST["nuevoEstado"];
+                $datos = array("estado" => $_POST["nuevoEstado"],
+                    "color"                 => $_POST["colorpicker"]);
 
                 $respuesta = ModeloEstados::mdlIngresarEstado($tabla, $datos);
 
@@ -24,20 +26,20 @@ class ControladorEstados
 
                     echo '<script>
 
-					swal({
-						  type: "success",
-						  title: "El estado ha sido guardado correctamente",
-						  showConfirmButton: true,
-						  confirmButtonText: "Cerrar"
-						  }).then(function(result){
-									if (result.value) {
+                    swal({
+                          type: "success",
+                          title: "El estado ha sido guardado correctamente",
+                          showConfirmButton: true,
+                          confirmButtonText: "Cerrar"
+                          }).then(function(result){
+                                    if (result.value) {
 
-									window.location = "estados";
+                                    window.location = "estados";
 
-									}
-								})
+                                    }
+                                })
 
-					</script>';
+                    </script>';
 
                 }
 
@@ -45,20 +47,20 @@ class ControladorEstados
 
                 echo '<script>
 
-					swal({
-						  type: "error",
-						  title: "¡La categoría no puede ir vacía o llevar caracteres especiales!",
-						  showConfirmButton: true,
-						  confirmButtonText: "Cerrar"
-						  }).then(function(result){
-							if (result.value) {
+                    swal({
+                          type: "error",
+                          title: "¡El estado no puede ir vacía o llevar caracteres especiales!",
+                          showConfirmButton: true,
+                          confirmButtonText: "Cerrar"
+                          }).then(function(result){
+                            if (result.value) {
 
-							window.location = "estados";
+                            window.location = "estados";
 
-							}
-						})
+                            }
+                        })
 
-			  	</script>';
+                </script>';
 
             }
 
@@ -95,6 +97,7 @@ class ControladorEstados
                 $tabla = "estados";
 
                 $datos = array("estado" => $_POST["editarEstado"],
+                    "color"                 => $_POST["editarColorpicker"],
                     "id"                    => $_POST["idEstado"]);
 
                 $respuesta = ModeloEstados::mdlEditarEstado($tabla, $datos);
@@ -103,22 +106,22 @@ class ControladorEstados
 
                     echo '<script>
 
-					swal({
-						  type: "success",
-						  title: "El estado ha sido cambiado correctamente",
-						  showConfirmButton: true,
-						  confirmButtonText: "Cerrar"
-						  }).then(function(result){
-									if (result.value) {
+                    swal({
+                          type: "success",
+                          title: "El estado ha sido cambiado correctamente",
+                          showConfirmButton: true,
+                          confirmButtonText: "Cerrar"
+                          }).then(function(result){
+                                    if (result.value) {
 
-									window.location = "estados";
+                                    window.location = "estados";
 
-									}else{
-										window.location = "estados";
-									}
-								})
+                                    }else{
+                                        window.location = "estados";
+                                    }
+                                })
 
-					</script>';
+                    </script>';
 
                 }
 
@@ -126,20 +129,20 @@ class ControladorEstados
 
                 echo '<script>
 
-					swal({
-						  type: "error",
-						  title: "¡El estado no puede ir vacío o llevar caracteres especiales!",
-						  showConfirmButton: true,
-						  confirmButtonText: "Cerrar"
-						  }).then(function(result){
-							if (result.value) {
+                    swal({
+                          type: "error",
+                          title: "¡El estado no puede ir vacío o llevar caracteres especiales!",
+                          showConfirmButton: true,
+                          confirmButtonText: "Cerrar"
+                          }).then(function(result){
+                            if (result.value) {
 
-							window.location = "estados";
+                            window.location = "estados";
 
-							}
-						})
+                            }
+                        })
 
-			  	</script>';
+                </script>';
 
             }
 
@@ -165,20 +168,20 @@ class ControladorEstados
 
                 echo '<script>
 
-					swal({
-						  type: "success",
-						  title: "El estado ha sido borrado correctamente",
-						  showConfirmButton: true,
-						  confirmButtonText: "Cerrar"
-						  }).then(function(result){
-									if (result.value) {
+                    swal({
+                          type: "success",
+                          title: "El estado ha sido borrado correctamente",
+                          showConfirmButton: true,
+                          confirmButtonText: "Cerrar"
+                          }).then(function(result){
+                                    if (result.value) {
 
-									window.location = "estados";
+                                    window.location = "estados";
 
-									}
-								})
+                                    }
+                                })
 
-					</script>';
+                    </script>';
             }
         }
 

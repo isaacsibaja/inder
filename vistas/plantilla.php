@@ -52,6 +52,12 @@ session_start();
   <!-- Morris chart -->
   <link rel="stylesheet" href="vistas/bower_components/morris.js/morris.css">
 
+  <!-- bootstrap datepicker -->
+  <link rel="stylesheet" href="vistas/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+
+  <!-- Bootstrap Color Picker -->
+  <link rel="stylesheet" href="vistas/bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css"
+
 
   <!--=====================================
   =            PUGINS DE JAVASCRIPT            =
@@ -104,6 +110,12 @@ session_start();
   <!-- ChartJS http://www.chartjs.org/-->
   <script src="vistas/bower_components/Chart.js/Chart.js"></script>
 
+  <!-- bootstrap datepicker -->
+<script src="vistas/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+<!-- bootstrap color picker -->
+<script src="vistas/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+
 
 </head>
 
@@ -111,7 +123,7 @@ session_start();
   =            sidebar-collapse hace que el sidebar disminuya de tamano            =
   ======================================-->
 
-<body class="hold-transition skin-blue sidebar-mini login-page">
+<body class="hold-transition skin-blue sidebar-collapse sidebar-mini login-page">
 
 
   <?php
@@ -143,7 +155,7 @@ if (isset($_SESSION["iniciarSesion"]) && $_SESSION["iniciarSesion"] == "ok") {
             $_GET["ruta"] == "estados" ||
             $_GET["ruta"] == "oficios" ||
             $_GET["ruta"] == "clientes" ||
-            $_GET["ruta"] == "transmites" ||
+            $_GET["ruta"] == "tramites" ||
             $_GET["ruta"] == "salir") {
 
             include "modulos/" . $_GET["ruta"] . ".php";
@@ -178,6 +190,8 @@ if (isset($_SESSION["iniciarSesion"]) && $_SESSION["iniciarSesion"] == "ok") {
 <script src="vistas/js/usuarios.js"></script>
 <script src="vistas/js/clientes.js"></script>
 <script src="vistas/js/estados.js"></script>
+<script src="vistas/js/oficios.js"></script>
+<script src="vistas/js/tramites.js"></script>
 
 </body>
 </html>

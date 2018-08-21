@@ -43,6 +43,7 @@
 
            <th style="width:10px">#</th>
            <th>Estado</th>
+           <th>Color</th>
            <th>Acciones</th>
 
          </tr>
@@ -65,6 +66,8 @@ foreach ($estados as $key => $value) {
                     <td>' . ($key + 1) . '</td>
 
                     <td class="text-uppercase">' . $value["estado"] . '</td>
+
+                    <td class="text-uppercase">' . $value["color"] . '</td>
 
                     <td>
 
@@ -139,7 +142,41 @@ MODAL AGREGAR ESTADO
 
                 <span class="input-group-addon"><i class="fa fa-th"></i></span>
 
-                <input type="text" class="form-control input-lg" id="nuevoEstado" name="nuevoEstado" placeholder="Ingresar estado" required>
+                <input type="text" class="form-control input-lg" id="nuevoEstado" name="nuevoEstado" placeholder="Ingresar estado">
+
+              </div>
+
+            </div>
+
+            <!-- ENTRADA PARA EL COLOR -->
+
+            <div class="form-group">
+
+              <div class="input-group">
+
+                <span class="input-group-addon"><i class="fa fa-paint-brush"></i></span>
+
+                <select class="form-control input-lg colorpicker" id="colorpicker" name="colorpicker">
+
+                  <option value="">Selecionar color</option>
+
+                  <option value="#000000">Negro</option>
+
+                  <option value="#FFFFFF">Blanco</option>
+
+                  <option value="#FF0000">Rojo</option>
+
+                  <option value="#00FF00">Verde</option>
+
+                  <option value="#0000FF">Azul</option>
+
+                  <option value="#FFFF00">Amarillo</option>
+
+                  <option value="#00FFFF">Cian</option>
+
+                  <option value="#FF00FF">Magenta</option>
+
+                </select>
 
               </div>
 
@@ -219,6 +256,42 @@ MODAL EDITAR CATEGORÍA
                 <input type="text" class="form-control input-lg" id="editarEstado" name="editarEstado"  required>
 
                  <input type="hidden"  name="idEstado" id="idEstado" required>
+
+              </div>
+
+            </div>
+
+
+            <!-- ENTRADA PARA EL COLOR -->
+
+            <div class="form-group">
+
+              <div class="input-group">
+
+                <span class="input-group-addon"><i class="fa fa-paint-brush"></i></span>
+
+
+                <select class="form-control input-lg" id="editarColorpicker" name="editarColorpicker">
+
+                  <option value="">Selecionar color</option>
+
+                  <option value="#000000">Negro</option>
+
+                  <option value="#FFFFFF">Blanco</option>
+
+                  <option value="#FF0000">Rojo</option>
+
+                  <option value="#00FF00">Verde</option>
+
+                  <option value="#0000FF">Azul</option>
+
+                  <option value="#FFFF00">Amarillo</option>
+
+                  <option value="#00FFFF">Cian</option>
+
+                  <option value="#FF00FF">Magenta</option>
+
+                </select>
 
               </div>
 
