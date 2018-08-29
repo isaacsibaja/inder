@@ -46,6 +46,9 @@ session_start();
     <!-- iCheck for checkboxes and radio inputs -->
   <link rel="stylesheet" href="vistas/plugins/iCheck/all.css">
 
+  <!-- fullcalendar -->
+  <link rel="stylesheet" href="vistas/bower_components/fullcalendar/fullcalendar.min.css">
+
    <!-- Daterange picker -->
   <link rel="stylesheet" href="vistas/bower_components/bootstrap-daterangepicker/daterangepicker.css">
 
@@ -54,6 +57,9 @@ session_start();
 
   <!-- bootstrap datepicker -->
   <link rel="stylesheet" href="vistas/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+
+  <!-- Bootstrap time Picker -->
+  <link rel="stylesheet" href="vistas/plugins/timepicker/bootstrap-timepicker.min.css">
 
   <!-- Bootstrap Color Picker -->
   <link rel="stylesheet" href="vistas/bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css"
@@ -116,11 +122,19 @@ session_start();
 <!-- bootstrap color picker -->
 <script src="vistas/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
 
+<!-- fullcalendar -->
+<script src="vistas/bower_components/fullcalendar/fullcalendar.min.js"></script>
+<script src="vistas/bower_components/fullcalendar/moment.min.js"></script>
+<script src="vistas/bower_components/fullcalendar/dist/locale/es.js"></script>
+
+<!-- bootstrap time picker -->
+<script src="vistas/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+
 
 </head>
 
 <!--=====================================
-  =            sidebar-collapse hace que el sidebar disminuya de tamano            =
+  =            sidebar-collapse hace que el sidebar disminuya de tamaño            =
   ======================================-->
 
 <body class="hold-transition skin-blue sidebar-collapse sidebar-mini login-page">
@@ -159,11 +173,17 @@ if (isset($_SESSION["iniciarSesion"]) && $_SESSION["iniciarSesion"] == "ok") {
             $_GET["ruta"] == "salir") {
 
             include "modulos/" . $_GET["ruta"] . ".php";
+
         } else {
+
             include "modulos/404.php";
+
         }
+
     } else {
+
         include "modulos/inicio.php";
+
     }
 
     /*=============================================
@@ -187,6 +207,7 @@ if (isset($_SESSION["iniciarSesion"]) && $_SESSION["iniciarSesion"] == "ok") {
 
 
 <script src="vistas/js/plantilla.js"></script>
+<script src="vistas/js/inicio.js"></script>
 <script src="vistas/js/usuarios.js"></script>
 <script src="vistas/js/clientes.js"></script>
 <script src="vistas/js/estados.js"></script>
