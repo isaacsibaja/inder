@@ -4,8 +4,8 @@
 
     <h1>
 
-      Administrar tramites
-      <small>(Todos los tramites)</small>
+      Administrar trámites
+      <small>(Todos los trámites)</small>
 
     </h1>
 
@@ -13,7 +13,7 @@
 
       <li><a href="inicio"><i class="fa fa-dashboard"></i> Inicio</a></li>
 
-      <li class="active">Administrar tramites</li>
+      <li class="active">Administrar trámites</li>
 
     </ol>
 
@@ -27,7 +27,7 @@
 
         <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarTramite">
 
-          Agregar tramite
+          Agregar trámite
 
         </button>
 
@@ -52,7 +52,7 @@
            <th>Solicitante</th>
            <th>Asentamiento</th>
            <th>Predio</th>
-           <th>Tránsmite</th>
+           <th>Trámite</th>
            <th>Observaciones</th>
            <th>Estado</th>
            <th>Enviado por</th>
@@ -162,7 +162,7 @@ MODAL AGREGAR TRAMITE
 
           <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-          <h4 class="modal-title">Agregar tramite</h4>
+          <h4 class="modal-title">Agregar trámite</h4>
 
         </div>
 
@@ -261,13 +261,13 @@ foreach ($cliente as $key => $value) {
 
             <div class="form-group">
 
-              <label>Tramite</label>
+              <label>Trámite</label>
 
               <div class="input-group">
 
                 <span class="input-group-addon"><i class="fa fa-sticky-note-o"></i></span>
 
-                <input type="text" class="form-control input-lg" id="nuevoTramite" name="nuevoTramite" placeholder="Ingresar tramite"  required>
+                <input type="text" class="form-control input-lg" id="nuevoTramite" name="nuevoTramite" placeholder="Ingresar trámite"  required>
 
               </div>
 
@@ -351,7 +351,7 @@ foreach ($estados as $key => $value) {
 
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
 
-          <button type="submit" class="btn btn-primary">Guardar tramite</button>
+          <button type="submit" class="btn btn-primary">Guardar trámite</button>
 
         </div>
 
@@ -391,7 +391,7 @@ MODAL EDITAR TRAMITE
 
           <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-          <h4 class="modal-title">Editar tramite</h4>
+          <h4 class="modal-title">Editar trámite</h4>
 
         </div>
 
@@ -492,7 +492,7 @@ foreach ($cliente as $key => $value) {
 
             <div class="form-group">
 
-              <label>Tramite</label>
+              <label>Trámite</label>
 
               <div class="input-group">
 

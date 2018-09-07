@@ -49,6 +49,7 @@ session_start();
   <!-- fullcalendar -->
   <link rel="stylesheet" href="vistas/bower_components/fullcalendar/fullcalendar.min.css">
 
+
    <!-- Daterange picker -->
   <link rel="stylesheet" href="vistas/bower_components/bootstrap-daterangepicker/daterangepicker.css">
 
@@ -123,9 +124,10 @@ session_start();
 <script src="vistas/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
 
 <!-- fullcalendar -->
-<script src="vistas/bower_components/fullcalendar/fullcalendar.min.js"></script>
+
+<script src="vistas/bower_components/fullcalendar/fullcalendar.js"></script>
+<script src="vistas/bower_components/fullcalendar/es.js"></script>
 <script src="vistas/bower_components/fullcalendar/moment.min.js"></script>
-<script src="vistas/bower_components/fullcalendar/dist/locale/es.js"></script>
 
 <!-- bootstrap time picker -->
 <script src="vistas/plugins/timepicker/bootstrap-timepicker.min.js"></script>

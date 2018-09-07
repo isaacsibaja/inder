@@ -1,14 +1,35 @@
 /*=============================================
-	TIMEPICKER PAGINA DE INICIO
+ //INICIO DE LABOR OTTO
 =============================================*/
-    $('.timepicker').timepicker({
-      showInputs: false
-    })
 
+$('#inicioLabor').datepicker({
+	format: "yyyy-mm-dd",
+    startDate: '-0d',
+    language: "es"
+});
+
+/*=============================================
+ //FINAL DE LABOR OTTO
+=============================================*/
+
+$('#finalLabor').datepicker({
+	format: "yyyy-mm-dd",
+    startDate: '-0d',
+    language: "es"
+});
+
+/*=============================================
+ //TIME PICKER FINAL DE LABOR OTTO
+=============================================*/
+
+    //$('#inicioHoraLabor').timepicker({
+      //showInputs: false
+    //})
+
+    
 /*=============================================
 CALENDARIO DE LABORES DEL PERSONAL PAGINA DE INICIO
 =============================================*/
-
 
 $(document).ready(function (){
 
@@ -18,62 +39,72 @@ $(document).ready(function (){
 			center:'title',
 			right:'month, basicWeek, basicDay, agendaWeek, agendaDay'
 		}, 
+
 		dayClick: function(date,jsEvent,view){
 			//alert("Valor selecciondo: "+date.format());
 			//alert("Vista: "+view.name);
 			$(this).css('background-color', '#ebfafa');
-			$('#nuevoInicio').val(date.format());
-			$('#nuevoFinal').val(date.format());
-			$("#modalAgregarLabor").modal();
+
+			$('#btnAgregarLabor').prop("disabled", false); 
+			$('#btnModificarLabor').prop("disabled", true);
+			$('#btnEliminarLabor').prop("disabled", true);
+
+			limpiarFormulario();
+			$('#inicioLabor').val(date.format());
+			$('#finalLabor').val(date.format());
+
+			$("#modalLabor").modal();
 		},
-			events: 'http://localhost/inder/eventos.php',
 
-		    eventClick:function(calEvent, jsEvent, view){
+		events: 'http://localhost/inder/eventos.php',
 
-		    	$('#id').val(calEvent.id);
+	    eventClick:function(calEvent, jsEvent, view){
 
-		    	$('#editarTitulo').val(calEvent.title);
-		    	$('#editarDescripcion').val(calEvent.descripcion);
-		    	$('#editarEtiqueta').val(calEvent.color);
-		    	$('#editarLetra').val(calEvent.textColor);
+	    	$('#btnAgregarLabor').prop("disabled", true); 
+			$('#btnModificarLabor').prop("disabled", false);
+			$('#btnEliminarLabor').prop("disabled", false);
 
-		    	FechaHoraInicio = calEvent.start._i.split(" ");
-		    	$('#editarInicio').val(FechaHoraInicio[0]);
-		    	$('#editarInicioHora').val(FechaHoraInicio[1]);
+	    	$('#id').val(calEvent.id);
+	    	$('#tituloLabor').val(calEvent.title);
+	    	$('#descripcionLabor').val(calEvent.descripcion);
+	    	$('#etiquetaLabor').val(calEvent.color);
+	    	$('#letraLabor').val(calEvent.textColor);
 
-		    	FechaHoraFinal = calEvent.end._i.split(" ");
-		    	$('#editarFinal').val(FechaHoraFinal[0]);
-		    	$('#editarFinalHora').val(FechaHoraFinal[1]);
+	    	FechaHoraInicio = calEvent.start._i.split(" ");
+	    	$('#inicioLabor').val(FechaHoraInicio[0]);
+	    	$('#inicioHoraLabor').val(FechaHoraInicio[1]);
 
-		    	$('#modalEditarLabor').modal();
-		    },
+	    	FechaHoraFinal = calEvent.end._i.split(" ");
+	    	$('#finalLabor').val(FechaHoraFinal[0]);
+	    	$('#finalHoraLabor').val(FechaHoraFinal[1]);
+	    	
+	    	$("#modalLabor").modal();
+	    },
 
-		    editable:true,
-		    eventDrop:function(calEvent){
+	    editable:true,
+	    eventDrop:function(calEvent){
 
-		    	id:$('#id').val(),
+	    	$('#id').val(calEvent.id);
+	    	$('#tituloLabor').val(calEvent.title);
+	    	$('#descripcionLabor').val(calEvent.descripcion);
+	    	$('#etiquetaLabor').val(calEvent.color);
+	    	$('#letraLabor').val(calEvent.textColor);
 
-		    	$('#editarTitulo').val(calEvent.title);
-		    	$('#editarDescripcion').val(calEvent.descripcion);
-		    	$('#editarEtiqueta').val(calEvent.color);
-		    	$('#editarLetra').val(calEvent.textColor);
+	    	FechaHoraInicio = calEvent.start.format().split("T");
+	    	$('#inicioLabor').val(FechaHoraInicio[0]);
+	    	$('#inicioHoraLabor').val(FechaHoraInicio[1]);
 
-		    	FechaHoraInicio = calEvent.start.format().split("T");
-		    	$('#editarInicio').val(FechaHoraInicio[0]);
-		    	$('#editarInicioHora').val(FechaHoraInicio[1]);
+	    	FechaHoraFinal = calEvent.end.format().split("T");
+	    	$('#finalLabor').val(FechaHoraFinal[0]);
+	    	$('#finalHoraLabor').val(FechaHoraFinal[1]);
 
-		    	FechaHoraFinal = calEvent.end.format().split("T");
-		    	$('#editarFinal').val(FechaHoraFinal[0]);
-		    	$('#editarFinalHora').val(FechaHoraFinal[1]);
-
-				RecolectarDatosEditados();
-
-				EnviarDatos('modificar', nuevoEvento,true);
-		    }
+			RecolectarDatos();
+			EnviarDatos('modificar', nuevoEvento, true);
+	    }
 
 	});
 
-})
+});
 
 
 /*=============================================
@@ -97,7 +128,7 @@ btnModificarLabor MODIFICAR LABOR EN LA PAGINA DE INICIO
 
 $('#btnModificarLabor').click(function(){
 
-	RecolectarDatosEditados();
+	RecolectarDatos();
 
 	EnviarDatos('modificar', nuevoEvento);
 
@@ -109,80 +140,89 @@ btnEliminarLabor ELIMINAR LABOR EN LA PAGINA DE INICIO
 
 $('#btnEliminarLabor').click(function(){
 
-	RecolectarDatosEditados();
 
-	EnviarDatos('eliminar', nuevoEvento);
+	swal({
+	 	title: '¿Está seguro de borrar la labor?',
+	 	text: "¡Si no lo está puede cancelar la acción!",
+	 	type: 'warning',
+	 	showCancelButton: true,
+	 	confirmButtonColor: '#3085d6',
+	 	cancelButtonColor: '#d33',
+	 	cancelButtonText: 'Cancelar',
+	 	confirmButtonText: 'Si, borrar labor!'
+	 }).then(function(result){
+
+	 	if(result.value){
+
+	 		RecolectarDatos();
+
+			EnviarDatos('eliminar', nuevoEvento);
+
+	 	}
+
+	 })
+	
 
 });
 
 
-
-
 /*=============================================
-RECOLECTAR DATOS MODAL AGREGAR
+RECOLECTAR DATOS MODAL
 =============================================*/
 function RecolectarDatos(){
 
 	nuevoEvento = {
 		id:$('#id').val(),
-		title:$('#nuevoTitulo').val(),
-		descripcion:$('#nuevaDescripcion').val(),
-		color:$('#nuevaEtiqueta').val(),
-		textColor:$('#nuevaLetra').val(),
-		start:$('#nuevoInicio').val()+" "+$('#nuevoInicioHora').val(),
-		end:$('#nuevoFinal').val()+" "+$('#nuevoFinalHora').val()
+		title:$('#tituloLabor').val(),
+		descripcion:$('#descripcionLabor').val(),
+		color:$('#etiquetaLabor').val(),
+		textColor:$('#letraLabor').val(),
+		start:$('#inicioLabor').val()+" "+$('#inicioHoraLabor').val(),
+		end:$('#finalLabor').val()+" "+$('#finalHoraLabor').val()
 	};
 }
 
-/*=============================================
-RECOLECTAR DATOS MODAL EDITAR
-=============================================*/
-function RecolectarDatosEditados(){
-
-	nuevoEvento = {
-		id:$('#id').val(),
-		title:$('#editarTitulo').val(),
-		descripcion:$('#editarDescripcion').val(),
-		color:$('#editarEtiqueta').val(),
-		textColor:$('#editarLetra').val(),
-		start:$('#editarInicio').val()+" "+$('#editarInicioHora').val(),
-		end:$('#editarFinal').val()+" "+$('#editarFinalHora').val()
-	};
-}
 
 /*=============================================
 INSERTAR EN BASE DE DATOS
 =============================================*/
 
-function EnviarDatos(accion, objEvent, modal){
+function EnviarDatos(accion, objEvento, modal){
 
 	$.ajax({
-
 		type:'POST',
 		url:'eventos.php?accion='+accion,
-		data:objEvent,
-
+		data:objEvento,
 		success: function(msg){
 
-			$("#modalModificarLabor").modal('toggle');
-
 			if (msg) {
-
 				$('#CalendarioWeb').fullCalendar('refetchEvents');
 
 				if (!modal) {
-					$("#modalAgregarLabor").modal('toggle');
-					$("#modalModificarLabor").modal('toggle');
+					$("#modalLabor").modal('toggle');
 				}
 
 			}
-		}, 
+			alert("Todo bien");
 
+		}, 
 		error: function(){
 
-			alert("enviado");
+			alert("Algo esta mal");
 
 		}
 
 	});
+}
+
+
+/*=============================================
+LIMPIAR EL FORMULARIO
+=============================================*/
+function limpiarFormulario(){
+	$('#id').val('');
+	$('#tituloLabor').val('');
+	$('#descripcionLabor').val('');
+	$('#etiquetaLabor').val('');
+	$('#letraLabor').val('');
 }

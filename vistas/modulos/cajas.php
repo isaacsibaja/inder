@@ -33,7 +33,7 @@ $totalEstados = count($estados);
 
     <div class="icon">
 
-      <i class="ion ion-person-add"></i>
+      <i class="fa fa-users"></i>
 
     </div>
 

@@ -1,8 +1,10 @@
 <?php
 
+require_once "modelos/conexion.php";
+
 header('Content-type: application/json');
 
-$pdo = new PDO("mysql:dbname=inder;host=127.0.0.1", "root", "");
+$pdo = Conexion::conectar();
 
 $accion = (isset($_GET['accion'])) ? $_GET['accion'] : 'leer';
 
@@ -10,15 +12,18 @@ switch ($accion) {
 
     case 'agregar':
 
-        $stmt = $pdo->prepare("INSERT INTO labores (title, descripcion, color, textColor, start, end) VALUES (:title, :descripcion, :color, :textColor, :start, :end)");
+        if (isset($_POST['id'])) {
 
-        $respuesta = $stmt->execute(array(
-            "title"       => $_POST['title'],
-            "descripcion" => $_POST['descripcion'],
-            "color"       => $_POST['color'],
-            "textColor"   => $_POST['textColor'],
-            "start"       => $_POST['start'],
-            "end"         => $_POST['end']));
+            $stmt = $pdo->prepare("INSERT INTO labores (title, descripcion, color, textColor, start, end) VALUES (:title, :descripcion, :color, :textColor, :start, :end)");
+
+            $respuesta = $stmt->execute(array(
+                "title"       => $_POST['title'],
+                "descripcion" => $_POST['descripcion'],
+                "color"       => $_POST['color'],
+                "textColor"   => $_POST['textColor'],
+                "start"       => $_POST['start'],
+                "end"         => $_POST['end']));
+        }
 
         echo json_encode($respuesta);
 
@@ -55,6 +60,7 @@ switch ($accion) {
                 "textColor"   => $_POST['textColor'],
                 "start"       => $_POST['start'],
                 "end"         => $_POST['end']));
+
         }
 
         echo json_encode($respuesta);
@@ -72,5 +78,6 @@ switch ($accion) {
         $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         echo json_encode($resultado);
+
         break;
 }
