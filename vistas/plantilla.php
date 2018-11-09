@@ -59,8 +59,14 @@ session_start();
   <!-- bootstrap datepicker -->
   <link rel="stylesheet" href="vistas/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
 
+  <!-- clockpicker -->
+  <link rel="stylesheet" href="vistas/bower_components/clockpicker/bootstrap-clockpicker.css">
+
   <!-- Bootstrap time Picker -->
   <link rel="stylesheet" href="vistas/plugins/timepicker/bootstrap-timepicker.min.css">
+
+  <!-- Mis estilos personalizados-->
+  <link rel="stylesheet" href="vistas/dist/css/estilos.css">
 
   <!-- Bootstrap Color Picker -->
   <link rel="stylesheet" href="vistas/bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css"
@@ -129,6 +135,10 @@ session_start();
 <script src="vistas/bower_components/fullcalendar/es.js"></script>
 <script src="vistas/bower_components/fullcalendar/moment.min.js"></script>
 
+<!-- clockpicker -->
+<script src="vistas/bower_components/clockpicker/bootstrap-clockpicker.js"></script>
+
+
 <!-- bootstrap time picker -->
 <script src="vistas/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 
@@ -139,7 +149,7 @@ session_start();
   =            sidebar-collapse hace que el sidebar disminuya de tamaño            =
   ======================================-->
 
-<body class="hold-transition skin-blue sidebar-collapse sidebar-mini login-page">
+<body class="hold-transition skin-blue sidebar-collapse sidebar-mini login-page" id="menuPlantilla">
 
 
   <?php
@@ -170,8 +180,13 @@ if (isset($_SESSION["iniciarSesion"]) && $_SESSION["iniciarSesion"] == "ok") {
             $_GET["ruta"] == "usuarios" ||
             $_GET["ruta"] == "estados" ||
             $_GET["ruta"] == "oficios" ||
+            $_GET["ruta"] == "seguimiento" ||
             $_GET["ruta"] == "clientes" ||
             $_GET["ruta"] == "tramites" ||
+            $_GET["ruta"] == "tipotramite" ||
+            $_GET["ruta"] == "miperfil" ||
+            $_GET["ruta"] == "instituto" ||
+            $_GET["ruta"] == "labores" ||
             $_GET["ruta"] == "salir") {
 
             include "modulos/" . $_GET["ruta"] . ".php";
@@ -215,6 +230,8 @@ if (isset($_SESSION["iniciarSesion"]) && $_SESSION["iniciarSesion"] == "ok") {
 <script src="vistas/js/estados.js"></script>
 <script src="vistas/js/oficios.js"></script>
 <script src="vistas/js/tramites.js"></script>
+<script src="vistas/js/instituto.js"></script>
+<script src="vistas/js/tipotramite.js"></script>
 
 </body>
 </html>

@@ -1,5 +1,8 @@
+      /*=============================================
+      =            DISPOSITIVO MOVIL ELIMINAR PROPIEDAD sidebar-collapse            =
+      =============================================*/
 
-
+      
 
       /*=============================================
       =            Seccion Menu Forma Sidebar            =

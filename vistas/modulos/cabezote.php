@@ -39,58 +39,6 @@
 
         <ul class="nav navbar-nav">
 
-        <!--====================================
-        =            Notificaciones            =
-        =====================================-->
-
-        <!-- Notifications: style can be found in dropdown.less -->
-          <li class="dropdown notifications-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have 10 notifications</li>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
-                      page and may cause design problems
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-users text-red"></i> 5 new members joined
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-shopping-cart text-green"></i> 25 sales made
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-user text-red"></i> You changed your username
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="footer"><a href="#">View all</a></li>
-            </ul>
-          </li>
-
-
-        <!--====  End of Notificaciones  ====-->
-
-
-
           <li class="dropdown user user-menu">
 
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -110,7 +58,7 @@ if ($_SESSION["foto"] != "") {
 
 ?>
 
-              <span class="hidden-xs">Bienvenido (a): <?php echo $_SESSION["nombre"]; ?></span>
+              <span class="hidden-xs">Bienvenido (a) : <?php echo $_SESSION["nombre"]; ?></span>
 
             </a>
 
@@ -141,19 +89,31 @@ if ($_SESSION["foto"] != "") {
 
               </li>
 
+              <!--data-toggle="modal" data-target="#modalEditarUsuario"-->
+
 
               <li class="user-body">
 
                 <div class="row">
+
                   <div class="col-xs-4 text-center">
-                    <a href="#">Mi Perfil</a>
+
+                    <a href="miperfil" id="miPerfil">Mi Perfil</a>
+
                   </div>
+
                   <div class="col-xs-4 text-center">
-                    <a href="#">Botón</a>
+
+                    <a href="labores">Labores</a>
+
                   </div>
+
                   <div class="col-xs-4 text-center">
-                    <a href="#">Botón</a>
+
+                    <a href="#"></a>
+
                   </div>
+
                 </div>
 
               </li>
@@ -161,7 +121,7 @@ if ($_SESSION["foto"] != "") {
 
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Botón</a>
+                  <a href="instituto" class="btn btn-default btn-flat">Configuración</a>
                 </div>
                 <div class="pull-right">
                    <a href="salir" class="btn btn-default btn-flat">Salir</a>
@@ -176,10 +136,6 @@ if ($_SESSION["foto"] != "") {
 
       </div>
 
-
-
-
     </nav>
-
 
 </header>

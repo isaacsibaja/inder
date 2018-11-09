@@ -57,7 +57,7 @@ class ModeloClientes
 
         } else {
 
-            $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
+            $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla ORDER BY id DESC");
 
             $stmt->execute();
 

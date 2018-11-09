@@ -1,14 +1,17 @@
+
+
 /*=============================================
- //Date picker EDITAR FECHA
+PREGUNTAR SI DESEA ENVIAR UNA RESPUESTA
+
+$('#editarSolicitudRespuesta').on('change', function(){
+   this.value = this.checked ? 1 : 0;
+   alert(this.value);
+}).change();
 =============================================*/
 
-$('#editarFecha').datepicker({
-  format: "yyyy-mm-dd",
-    startDate: '-3d',
-    language: "es"
-});
-
-
+/*=============================================
+VALIDANDO INSERTAR TRAMITE
+=============================================*/
 
 function registroTramite(){
 
@@ -35,7 +38,6 @@ function registroTramite(){
     
     return false;
   }
-
 
   /*=============================================
   VALIDANDO EL CLIENTE O SOLICITANTE 
@@ -70,7 +72,7 @@ function registroTramite(){
 
   if (asentamiento != "") {
 
-    var expresion  = /^[.a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/;
+    var expresion  = /^[#.a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/;
 
     if (!expresion.test(asentamiento)) {
 
@@ -95,7 +97,7 @@ function registroTramite(){
 
   if (predio != "") {
 
-    var expresion  = /^[-,.a-zA-Z0-9 ]+$/;
+    var expresion  = /^[-,.a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/;
 
     if (!expresion.test(predio)) {
 
@@ -116,22 +118,74 @@ function registroTramite(){
   VALIDANDO EL TRAMITE 
   =============================================*/
 
-  var tramite = $("#nuevoTramite").val();
+  var tramite = $("#nuevoTipoTramite").val();
 
   if (tramite != "") {
 
-    var expresion  = /^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/;
+    var expresion  = /^[0-9]+$/;
 
     if (!expresion.test(tramite)) {
 
-      $("#nuevoTramite").parent().before('<div class="alert alert-warning"><strong>ERROR: </strong>No se permiten caractéres especiales en el tramite.</div>');
+      $("#nuevoTipoTramite").parent().before('<div class="alert alert-warning"><strong>ERROR: </strong>No se permiten caractéres especiales en el tipo trámite.</div>');
     
       return false;
     }
 
   }else{
 
-    $("#nuevoTramite").parent().before('<div class="alert alert-warning"><strong>ATENCIÓN: </strong>Este campo es obligatorio</div>');
+    $("#nuevoTipoTramite").parent().before('<div class="alert alert-warning"><strong>ATENCIÓN: </strong>Este campo es obligatorio</div>');
+    
+    return false;
+  }
+
+  /*=============================================
+  VALIDANDO SOLICITUD RESPUESTA
+
+    var solicitud = $("#nuevaSolicitudRespuesta").val();
+
+  if (solicitud != "") { 
+  ///^[.a-zA-Z0-9 ]+$/;
+  
+    var expresion  = /^[0-9]+$/;
+
+    if (!expresion.test(solicitud)) {
+
+      $("#idNuevaSolicitudRespuesta").parent().before('<div class="alert alert-warning"><strong>ERROR: </strong>No se permiten caractéres especiales en solicitud respuesta.</div>');
+    
+      window.alert(solicitud);
+
+      return false;
+    }
+
+  }else{
+
+    $("#idNuevaSolicitudRespuesta").parent().before('<div class="alert alert-warning"><strong>ATENCIÓN: </strong>Solicitud respuesta es un campo obligatorio.</div>');
+    
+    return false;
+  }
+  =============================================*/
+
+
+  /*=============================================
+  VALIDANDO LA RESPUESTA
+  =============================================*/
+
+  var respuesta = $("#nuevaRespuesta").val();
+
+  if (respuesta != "") {
+
+    var expresion  = /^[.a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/;
+
+    if (!expresion.test(respuesta)) {
+
+      $("#nuevaRespuesta").parent().before('<div class="alert alert-warning"><strong>ERROR: </strong>No se permiten caractéres especiales en la respuesta.</div>');
+    
+      return false;
+    }
+
+  }else{
+
+    $("#nuevaRespuesta").parent().before('<div class="alert alert-warning"><strong>ATENCIÓN: </strong>Este campo es obligatorio</div>');
     
     return false;
   }
@@ -206,6 +260,7 @@ function registroTramite(){
     return false;
   }
 
+
   //fin registroTramites()
 
 }
@@ -213,31 +268,6 @@ function registroTramite(){
 
 
 function modificarTramite(){
-
-  /*=============================================
-  VALIDANDO EL NOMBRE 
-  =============================================*/
-
-  var fecha = $("#editarFecha").val();
-
-  if (fecha != "") {
-
-    var expresion  = /^[-0-9]+$/;
-
-    if (!expresion.test(fecha)) {
-
-      $("#editarFecha").parent().before('<div class="alert alert-warning"><strong>ERROR: </strong>No se permiten caractéres especiales en la fecha.</div>');
-    
-      return false;
-    }
-
-  }else{
-
-    $("#editarFecha").parent().before('<div class="alert alert-warning"><strong>ATENCIÓN: </strong>Este campo es obligatorio</div>');
-    
-    return false;
-  }
-
 
   /*=============================================
   VALIDANDO EL CLIENTE O SOLICITANTE 
@@ -277,7 +307,7 @@ function modificarTramite(){
     if (!expresion.test(asentamiento)) {
 
       $("#editarAsentamiento").parent().before('<div class="alert alert-warning"><strong>ERROR: </strong>No se permiten caractéres especiales en el asentamiento.</div>');
-    
+      
       return false;
     }
 
@@ -297,7 +327,7 @@ function modificarTramite(){
 
   if (predio != "") {
 
-    var expresion  = /^[-,.a-zA-Z0-9 ]+$/;
+    var expresion  = /^[-,.a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/;
 
     if (!expresion.test(predio)) {
 
@@ -318,7 +348,7 @@ function modificarTramite(){
   VALIDANDO EL TRAMITE 
   =============================================*/
 
-  var tramite = $("#editarTramite").val();
+  var tramite = $("#editarTipoTramite").val();
 
   if (tramite != "") {
 
@@ -326,14 +356,14 @@ function modificarTramite(){
 
     if (!expresion.test(tramite)) {
 
-      $("#editarTramite").parent().before('<div class="alert alert-warning"><strong>ERROR: </strong>No se permiten caractéres especiales en el tramite.</div>');
+      $("#editarTipoTramite").parent().before('<div class="alert alert-warning"><strong>ERROR: </strong>No se permiten caractéres especiales en el tramite.</div>');
     
       return false;
     }
 
   }else{
 
-    $("#editarTramite").parent().before('<div class="alert alert-warning"><strong>ATENCIÓN: </strong>Este campo es obligatorio</div>');
+    $("#editarTipoTramite").parent().before('<div class="alert alert-warning"><strong>ATENCIÓN: </strong>Este campo es obligatorio</div>');
     
     return false;
   }
@@ -384,29 +414,84 @@ function modificarTramite(){
   }
 
 
-  /*=============================================
+    /*=============================================
   VALIDANDO ENVIADO POR 
   =============================================*/
 
-  var enviado = $("#editarEnviado").val();
+  var enviado = $("#editarRespuesta").val();
 
   if (enviado != "") {
 
-    var expresion  = /^[0-9]+$/;
+    var expresion  = /^[.a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/;
 
     if (!expresion.test(enviado)) {
 
-      $("#editarEnviado").parent().before('<div class="alert alert-warning"><strong>ERROR: </strong>No se permiten caractéres especiales en enviado por.</div>');
+      $("#editarRespuesta").parent().before('<div class="alert alert-warning"><strong>ERROR: </strong>No se permiten caractéres especiales en enviado por.</div>');
     
       return false;
     }
 
   }else{
 
-    $("#editarEnviado").parent().before('<div class="alert alert-warning"><strong>ATENCIÓN: </strong>Este campo (enviado por) es obligatorio</div>');
+    $("#editarRespuesta").parent().before('<div class="alert alert-warning"><strong>ATENCIÓN: </strong>Este campo (enviado por) es obligatorio</div>');
     
     return false;
   }
+
+ /*=============================================
+  VALIDANDO SOLICITUD RESPUESTA
+  =============================================*/
+
+  var solicitud = $("#editarSolicitudRespuesta").val();
+
+  if (solicitud != "") {
+
+    var expresion  = /^[0-9]+$/;
+
+    if (!expresion.test(solicitud)) {
+
+      $("#idEditarSolicitudRespuesta").parent().before('<div class="alert alert-warning"><strong>ERROR: </strong>No se permiten caractéres especiales en solicitud respuesta.</div>');
+
+      window.alert(solicitud);
+
+      return false;
+    }
+
+  }else{
+
+    $("#idEditarSolicitudRespuesta").parent().before('<div class="alert alert-warning"><strong>ATENCIÓN: </strong>Solicitud respuesta es un campo obligatorio.</div>');
+    
+    return false;
+  }
+
+
+
+
+  /*=============================================
+  VALIDANDO EL ENVIADO
+
+  var estado = $("#editarEnviado").val();
+
+  if (estado != "") {
+
+    var expresion  = /^[0-9]+$/;
+
+    if (!expresion.test(estado)) {
+
+      $("#editarEnviado").parent().before('<div class="alert alert-warning"><strong>ERROR: </strong>No se permiten caractéres especiales en el estado.</div>');
+    
+      return false;
+    }
+
+  }else{
+
+    $("#editarEnviado").parent().before('<div class="alert alert-warning"><strong>ATENCIÓN: </strong>Este campo es obligatorio</div>');
+    
+    return false;
+  }
+  =============================================*/
+
+  
 
   //fin modificarTramite()
 
@@ -420,9 +505,11 @@ EDITAR TRAMITE
 $(".tablas").on("click", ".btnEditarTramite", function(){
 
 	var idTramite = $(this).attr("idTramite");
+  //var idSolicitudRespuesta = $(this).attr("idSolicitudRespuesta");
 
 	var datos = new FormData();
     datos.append("idTramite", idTramite);
+    //datos.append("idSolicitudRespuesta", idSolicitudRespuesta);
 
     $.ajax({
 
@@ -434,19 +521,40 @@ $(".tablas").on("click", ".btnEditarTramite", function(){
       processData: false,
       dataType:"json",
       success:function(respuesta){
+        console.log("respuesta", respuesta);
 
-      	//console.log("respuesta", respuesta);
+        	 $("#idTramite").val(respuesta["id"]);
+           $("#idSolicitudRespuesta").val(respuesta["solicitudRespuesta"]);
+  	       $("#editarFecha").val(respuesta["fecha"]);
+  	       $("#editarSolicitante").val(respuesta["idCliente"]);
+  	       $("#editarAsentamiento").val(respuesta["asentamiento"]);
+  	       $("#editarPredio").val(respuesta["predio"]);
 
-      	   $("#idTramite").val(respuesta["id"]);
-	       $("#editarFecha").val(respuesta["fecha"]);
-	       $("#editarSolicitante").val(respuesta["idCliente"]);
-	       $("#editarAsentamiento").val(respuesta["asentamiento"]);
-	       $("#editarPredio").val(respuesta["predio"]);
-	       $("#editarTramite").val(respuesta["tramite"]);
-	       $("#editarObservacion").val(respuesta["observacion"]);
-	       $("#editarEstado").val(respuesta["idEstado"]);
+           $("#editarTipoTramite").val(respuesta["idTipoTramite"]);
+  	       $("#editarObservacion").val(respuesta["observacion"]);
+  	       $("#editarEstado").val(respuesta["idEstado"]);
            $("#editarEnviado").val(respuesta["idUsuario"]);
-	  }
+           $("#editarRespuesta").val(respuesta["respuesta"]);
+
+           //$("#editarSolicitudRespuesta").val(respuestas["solicitudRespuesta"]);
+
+           //Eliminando el valor del radio buttom selecionado anteriormente
+
+           $("#siT").removeAttr("checked");
+           $("#noT").removeAttr("checked");
+
+           //BOTON DE SEGUIMIENTOS
+
+           if (respuesta["solicitudRespuesta"] == "1") {
+
+            $("#siT").attr("checked", respuesta["solicitudRespuesta"]);
+
+           }else{
+            
+              $("#noT").attr("checked", respuesta["solicitudRespuesta"]);
+           }
+
+    	  }
 
   	})
 
@@ -460,14 +568,14 @@ $(".tablas").on("click", ".btnEliminarTramite", function(){
 	var idTramite = $(this).attr("idTramite");
 	
 	swal({
-        title: '¿Está seguro de borrar el tramite?',
+        title: '¿Está seguro de borrar el trámite?',
         text: "¡Si no lo está puede cancelar la acción!",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         cancelButtonText: 'Cancelar',
-        confirmButtonText: 'Si, borrar tramite!'
+        confirmButtonText: 'Si, borrar trámite!'
       }).then(function(result){
         if (result.value) {
           
@@ -475,5 +583,21 @@ $(".tablas").on("click", ".btnEliminarTramite", function(){
         }
 
   })
+
+})
+
+
+
+
+/*=============================================
+IMPRIMIR TRAMITE PDF
+=============================================*/
+
+
+$(".tablas").on("click", ".btnImprimirTramite", function(){
+
+  var id = $(this).attr("codigoTramite");
+
+  window.open("extensiones/tcpdf/pdf/tramite.php?id="+id, "_blank");
 
 })

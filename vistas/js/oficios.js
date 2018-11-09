@@ -4,8 +4,10 @@
 
 $('#nuevoPlazo').datepicker({
 	format: "yy-mm-dd",
-    startDate: '-3d',
-    language: "es"
+  startDate: '-0d',
+  todayBtn: "linked",
+  calendarWeeks: true,
+  language: "es"
 });
 
 /*=============================================
@@ -14,7 +16,8 @@ $('#nuevoPlazo').datepicker({
 
 $('#nuevoPlazoAnoNuevo').datepicker({
   format: "yy-mm-dd",
-    startDate: '-3d',
+    startDate: '-0d',
+    todayBtn: "linked",
     language: "es"
 });
 
@@ -22,11 +25,11 @@ $('#nuevoPlazoAnoNuevo').datepicker({
  //Date picker EDITAR FECHA
 =============================================*/
 
-$('#editarFecha').datepicker({
+/*$('#editarFecha').datepicker({
   format: "yy-mm-dd",
     startDate: '-60d',
     language: "es"
-});
+});*/
 
 /*=============================================
  //Date picker EDITAR PLAZO
@@ -35,8 +38,23 @@ $('#editarFecha').datepicker({
 $('#editarPlazo').datepicker({
   format: "yy-mm-dd",
     startDate: '-3d',
+    todayBtn: "linked",
+    autoclose: true,
+    calendarWeeks: true,
     language: "es"
 });
+
+
+/*=============================================
+ //Date picker EDITAR PLAZO
+
+ $('#seguimiento').on('change', function(){
+   this.value = this.checked ? 1 : 0;
+   //alert(this.value);
+}).change();
+=============================================*/
+
+
 
 
 
@@ -72,13 +90,12 @@ function registroOficio(){
 
   /*=============================================
   VALIDANDO EL OFICIO
-  =============================================*/
 
   var oficio = $("#nuevoOficio").val();
 
   if (oficio != "") {
 
-    var expresion  = /^[0-9 ]+$/;
+    var expresion  = /^[0-9]+$/;
 
     if (!expresion.test(oficio)) {
 
@@ -93,6 +110,9 @@ function registroOficio(){
     
     return false;
   }
+  =============================================*/
+
+  
 
   /*=============================================
   VALIDANDO DIRIGIDO
@@ -194,7 +214,7 @@ function registroOficio(){
 
   if (estado != "") {
 
-    var expresion  = /^[a-zA-Z0-9 ]+$/;
+    var expresion  = /^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ  ]+$/;
 
     if (!expresion.test(estado)) {
 
@@ -206,8 +226,6 @@ function registroOficio(){
   }
 
 }
-
-
 
 
 
@@ -322,11 +340,11 @@ function registroOficioAnual(){
 
   if (enviado != "") {
 
-    var expresion  = /^[-a-zA-Z0-9 ]+$/;
+    var expresion  = /^[-a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/;
 
     if (!expresion.test(enviado)) {
 
-      $("#nuevoEnviadoAnoNuevo").parent().before('<div class="alert alert-warning"><strong>ERROR: </strong>No se permiten espacios ni caractéres especiales en el teléfono.</div>');
+      $("#nuevoEnviadoAnoNuevo").parent().before('<div class="alert alert-warning"><strong>ERROR: </strong>No se permiten espacios ni caractéres especiales en enviado por.</div>');
     
       return false;
     }
@@ -366,7 +384,7 @@ function registroOficioAnual(){
 
   if (estado != "") {
 
-    var expresion  = /^[a-zA-Z0-9 ]+$/;
+    var expresion  = /^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ  ]+$/;
 
     if (!expresion.test(estado)) {
 
@@ -378,8 +396,6 @@ function registroOficioAnual(){
   }
 
 }
-
-
 
 
 
@@ -494,11 +510,11 @@ function modificarOficio(){
 
   if (enviado != "") {
 
-    var expresion  = /^[-a-zA-Z0-9 ]+$/;
+    var expresion  = /^[-a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/;
 
     if (!expresion.test(enviado)) {
 
-      $("#editarEnviado").parent().before('<div class="alert alert-warning"><strong>ERROR: </strong>No se permiten espacios ni caractéres especiales en el teléfono.</div>');
+      $("#editarEnviado").parent().before('<div class="alert alert-warning"><strong>ERROR: </strong>No se permiten espacios ni caractéres especiales en enviado por.</div>');
     
       return false;
     }
@@ -575,7 +591,8 @@ $(".tablas").on("click", ".btnEditarOficio", function(){
       dataType:"json",
 
       success:function(respuesta){
-
+        //console.log("respuesta", respuesta);
+         
       	 $("#idOficio").val(respuesta["id"]);
 	       $("#editarFecha").val(respuesta["fecha"]);
 	       $("#editarOficio").val(respuesta["oficio"]);
@@ -584,7 +601,26 @@ $(".tablas").on("click", ".btnEditarOficio", function(){
 	       $("#editarEnviado").val(respuesta["enviadoPor"]);
 	       $("#editarPlazo").val(respuesta["plazoRespuesta"]);
 	       $("#editarEstado").val(respuesta["idEstado"]);
-	  }
+
+         //Eliminando el valor del radio buttom selecionado anteriormente
+
+         $("#siM").removeAttr("checked");
+         $("#noM").removeAttr("checked");
+
+         //BOTON DE SEGUIMIENTOS
+
+         if (respuesta["seguimiento"] == "1") {
+
+            $("#siM").attr("checked", respuesta["seguimiento"]);
+
+         }else{
+
+            $("#noM").attr("checked", respuesta["seguimiento"]);
+
+         }
+
+
+      }
 
   	})
 
@@ -615,3 +651,20 @@ $(".tablas").on("click", ".btnEliminarOficio", function(){
   })
 
 })
+
+
+
+function checkBox(){
+  var checkBox = document.getElementById("seguimiento");
+
+  var valorCheckBox = document.getElementById("");
+
+  if (checkBox.checked == true) {
+
+
+  }
+  else
+  {
+
+  }
+}

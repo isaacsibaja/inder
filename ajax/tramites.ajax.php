@@ -11,6 +11,7 @@ class AjaxTramites
     =============================================*/
 
     public $idTramite;
+    //public $idSolicitudRespuesta;
 
     public function ajaxEditarTramite()
     {
@@ -23,6 +24,18 @@ class AjaxTramites
         echo json_encode($respuesta);
 
     }
+
+    /*public function ajaxEditarSolicitudRespuesta()
+{
+
+$item  = "solicitudRespuesta";
+$valor = $this->idSolicitudRespuesta;
+
+$respuesta = ControladorTramites::ctrMostrarTramites($item, $valor);
+
+echo json_encode($respuesta);
+
+}*/
 
 }
 
@@ -37,3 +50,15 @@ if (isset($_POST["idTramite"])) {
     $tramite->ajaxEditarTramite();
 
 }
+
+/*=============================================
+EDITAR SOLICITUD RESPUESTA
+
+if (isset($_POST["idSolicitudRespuesta"])) {
+
+$solicitudRespuesta                       = new AjaxTramites();
+$solicitudRespuesta->idSolicitudRespuesta = $_POST["idSolicitudRespuesta"];
+$solicitudRespuesta->ajaxEditarSolicitudRespuesta();
+
+}
+=============================================*/

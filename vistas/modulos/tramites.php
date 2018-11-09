@@ -31,13 +31,26 @@
 
         </button>
 
-        <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#modalAgregarCliente">
+
+        <div class="box-tool pull-right">
+
+          <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarCliente">
 
           Agregar cliente
 
         </button>
 
+          <?php
+
+echo '<a href="vistas/modulos/descargar-reporte-tramites.php?Reporte=Reporte">
+            <button class="btn btn-success">Descargar reporte de trámites</button>
+          </a>';
+?>
+
+        </div>
+
       </div>
+
 
       <div class="box-body">
 
@@ -53,9 +66,10 @@
            <th>Asentamiento</th>
            <th>Predio</th>
            <th>Trámite</th>
-           <th>Observaciones</th>
+           <th>Observación</th>
            <th>Estado</th>
-           <th>Enviado por</th>
+           <th>Enviado</th>
+           <th>R/</th>
            <th>Acciones</th>
 
          </tr>
@@ -88,35 +102,54 @@ foreach ($tramites as $key => $value) {
 
                     <td>' . $value["asentamiento"] . '</td>
 
-                    <td>' . $value["predio"] . '</td>
+                    <td>' . $value["predio"] . '</td>';
 
-                    <td>' . $value["tramite"] . '</td>
+    $itemTipoTramite  = "id";
+    $valorTipoTramite = $value["idTipoTramite"];
+
+    $respuestaTipoTramite = ControladorTipoTramites::ctrMostrarTipoTramites($itemTipoTramite, $valorTipoTramite);
+
+    echo '<td>' . $respuestaTipoTramite["tipo"] . '</td>
 
                     <td>' . $value["observacion"] . '</td>';
 
-    $itemCliente  = "id";
-    $valorCliente = $value["idEstado"];
+    $itemEstado  = "id";
+    $valorEstado = $value["idEstado"];
 
-    $respuestaCliente = ControladorEstados::ctrMostrarEstados($itemCliente, $valorCliente);
+    $respuestaEstado = ControladorEstados::ctrMostrarEstados($itemEstado, $valorEstado);
 
-    echo '<td>' . $respuestaCliente["estado"] . '</td>';
+    echo '<td>' . $respuestaEstado["estado"] . '</td>';
 
     $itemUsuario  = "id";
     $valorUsuario = $value["idUsuario"];
 
     $respuestaUsuario = ControladorUsuarios::ctrMostrarUsuarios($itemUsuario, $valorUsuario);
 
-    echo '<td>' . $respuestaUsuario["nombre"] . '</td>
+    echo '<td>' . $respuestaUsuario["nombre"] . '</td>';
 
-                    <td>
+    $si                      = "Si";
+    $no                      = "No";
+    $valorSolicitudRespuesta = $value["solicitudRespuesta"];
+
+    if ($value["solicitudRespuesta"] == "1") {
+        echo '<td align="center">' . $si . '</td>';
+    } else {
+        echo '<td align="center">' . $no . '</td>';
+    }
+
+    echo '<td>
 
                       <div class="btn-group">
 
-                        <button class="btn btn-warning btnEditarTramite" data-toggle="modal" data-target="#modalEditarTramite" idTramite="' . $value["id"] . '"><i class="fa fa-pencil"></i></button>';
+                      <button class="btn btn-info btnImprimirTramite" codigoTramite="' . $value["id"] . '">
+                          <i class="fa fa-print"></i>
+                      </button>
+
+                        <button class="btn btn-warning btnEditarTramite" data-toggle="modal" data-target="#modalEditarTramite" idTramite="' . $value["id"] . '" idSolicitudRespuesta="' . $value["solicitudRespuesta"] . '"><i class="fa fa-pencil"></i></button>';
 
     if ($_SESSION["perfil"] == "Administrador") {
 
-        echo '<button class="btn btn-danger btnEliminarTramite" idTramite="' . $value["id"] . '"><i class="fa fa-times"></i></button>';
+        //echo '<button class="btn btn-danger btnEliminarTramite" idTramite="' . $value["id"] . '"><i class="fa fa-times"></i></button>';
 
     }
 
@@ -125,7 +158,6 @@ foreach ($tramites as $key => $value) {
                     </td>
 
                   </tr>';
-
 }
 
 ?>
@@ -142,6 +174,8 @@ foreach ($tramites as $key => $value) {
 
 </div>
 
+
+
 <!--=====================================
 MODAL AGREGAR TRAMITE
 ======================================-->
@@ -151,6 +185,8 @@ MODAL AGREGAR TRAMITE
   <div class="modal-dialog">
 
     <div class="modal-content">
+
+      <!--onsubmit="return registroTramite()"-->
 
       <form role="form" method="post" onsubmit="return registroTramite()">
 
@@ -184,13 +220,19 @@ MODAL AGREGAR TRAMITE
 
                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 
-                <input type="text" class="form-control input-lg" id="nuevaFecha" name="nuevaFecha" value="<?php echo date("Y-m-d"); ?>" data-inputmask="'alias': 'yyyy-mm-dd'" data-mask placeholder="Ingresar fecha *" required readonly>
+                <?php
+date_default_timezone_set('America/Costa_Rica');
+
+$fecha = date('Y-m-d');
+?>
+
+                <input type="text" class="form-control input-lg" id="nuevaFecha" name="nuevaFecha" value="<?php echo $fecha ?>" placeholder="Ingresar fecha actual" data-inputmask="'alias': 'yyyy-mm-dd'" data-mask  readonly>
 
               </div>
 
             </div>
 
-            <!-- ENTRADA PARA SOLICITANTE O CLIENTE -->
+            <!-- ENTRADA PARA EL CLIENTE O SOLICITANTE -->
 
             <div class="form-group">
 
@@ -200,11 +242,11 @@ MODAL AGREGAR TRAMITE
 
                 <span class="input-group-addon"><i class="fa fa fa-users"></i></span>
 
-                <select class="form-control input-lg" id="nuevoSolicitante" name="nuevoSolicitante" required>
+                <select class="form-control input-lg" id="nuevoSolicitante" name="nuevoSolicitante" >
 
-                        <option value="">Selecionar solicitante</option>
+                    <option value="">Seleccionar cliente</option>
 
-                        <?php
+                    <?php
 
 $item  = null;
 $valor = null;
@@ -214,11 +256,12 @@ $cliente = ControladorClientes::ctrMostrarClientes($item, $valor);
 foreach ($cliente as $key => $value) {
 
     echo '<option value="' . $value["id"] . '">' . $value["nombre"] . '</option>';
+
 }
 
 ?>
 
-                      </select>
+                    </select>
 
               </div>
 
@@ -228,13 +271,13 @@ foreach ($cliente as $key => $value) {
 
             <div class="form-group">
 
-              <label>Asentamiento</label>
+              <label>Asentamiento o Localidad</label>
 
               <div class="input-group">
 
                 <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
 
-                <input type="text" class="form-control input-lg" id="nuevoAsentamiento" name="nuevoAsentamiento" placeholder="Ingresar asentamiento" required>
+                <input type="text" class="form-control input-lg" id="nuevoAsentamiento" name="nuevoAsentamiento" placeholder="Ingresar asentamiento" >
 
               </div>
 
@@ -244,36 +287,54 @@ foreach ($cliente as $key => $value) {
 
             <div class="form-group">
 
-              <label>Predio</label>
+              <label>Predio o Dirección</label>
 
               <div class="input-group">
 
                 <span class="input-group-addon"><i class="fa fa-sort-numeric-asc"></i></span>
 
-                <input type="text" class="form-control input-lg" id="nuevoPredio" name="nuevoPredio" placeholder="Ingresar predio" required>
+                <input type="text" class="form-control input-lg" id="nuevoPredio" name="nuevoPredio" placeholder="Ingresar predio o localidad" >
 
               </div>
 
             </div>
 
-
-            <!-- ENTRADA PARA EL TRAMITE -->
+            <!-- ENTRADA PARA TIPO TRAMITE -->
 
             <div class="form-group">
 
-              <label>Trámite</label>
+              <label>Tipo Trámite</label> <small> (Para agregar más tipos de trámite <a href="tipotramite">clic aquí)</a></small>
 
               <div class="input-group">
 
                 <span class="input-group-addon"><i class="fa fa-sticky-note-o"></i></span>
 
-                <input type="text" class="form-control input-lg" id="nuevoTramite" name="nuevoTramite" placeholder="Ingresar trámite"  required>
+                <select class="form-control input-lg" id="nuevoTipoTramite" name="nuevoTipoTramite" >
+
+                    <option value="">Seleccionar tipo trámite</option>
+
+                    <?php
+
+$item  = null;
+$valor = null;
+
+$tipoTramite = ControladorTipoTramites::ctrMostrarTipoTramites($item, $valor);
+
+foreach ($tipoTramite as $key => $value) {
+
+    echo '<option value="' . $value["id"] . '">' . $value["tipo"] . '</option>';
+
+}
+
+?>
+
+                    </select>
 
               </div>
 
             </div>
 
-            <!-- ENTRADA PARA LA OBSERVACIÓN -->
+             <!-- ENTRADA PARA LA OBSERVACIÓN -->
 
             <div class="form-group">
 
@@ -283,7 +344,7 @@ foreach ($cliente as $key => $value) {
 
                 <span class="input-group-addon"><i class="fa  fa-search"></i></span>
 
-                <input type="text" class="form-control input-lg" id="nuevaObservacion" name="nuevaObservacion" placeholder="Ingresar observación *">
+                <textarea type="text" class="form-control input-lg" id="nuevaObservacion" name="nuevaObservacion" placeholder="Ingresar observación (opcional)" rows="3"></textarea>
 
               </div>
 
@@ -299,7 +360,7 @@ foreach ($cliente as $key => $value) {
 
                 <span class="input-group-addon"><i class="fa fa-th"></i></span>
 
-                <select class="form-control input-lg" id="nuevoEstado" name="nuevoEstado" required>
+                <select class="form-control input-lg" id="nuevoEstado" name="nuevoEstado" >
 
                         <option value="">Selecionar estado</option>
 
@@ -323,17 +384,31 @@ foreach ($estados as $key => $value) {
 
             </div>
 
-            <!-- ENTRADA PARA ID USUARIO -->
+            <!-- ENTRADA PARA SEGUIMIENTO -->
+
+            <div class="formulario" align="center">
+
+              <h2 id="idNuevaSolicitudRespuesta">¿Desea dar respuesta a este trámite?</h2>
+
+                  <input type="radio" name="nuevaSolicitudRespuesta" id="si" value="1" >
+                  <label for="si">Si dar respuesta</label>
+
+                  <input type="radio" name="nuevaSolicitudRespuesta" id="no" value="0" checked>
+                  <label for="no">No dar respuesta</label>
+
+            </div>
+
+            <!-- ENTRADA PARA LA RESPUESTA -->
 
             <div class="form-group">
 
-              <!--<label>Usuario</label>-->
+              <label>Respuesta</label>
 
               <div class="input-group">
 
-                <!--<span class="input-group-addon"><i class="fa fa-user"></i></span>-->
+                <span class="input-group-addon"><i class="fa fa-sticky-note-o"></i></span>
 
-                <input type="hidden" class="form-control input-lg" id="nuevoEnviado" name="nuevoEnviado" value="<?php echo $_SESSION["id"]; ?>" placeholder="Ingresar enviado por" required readonly>
+                <input type="text" class="form-control input-lg" id="nuevaRespuesta" name="nuevaRespuesta" placeholder="Ingresar respuesta">
 
               </div>
 
@@ -348,6 +423,9 @@ foreach ($estados as $key => $value) {
         ======================================-->
 
         <div class="modal-footer">
+
+          <input type="hidden" class="form-control input-lg" id="nuevoEnviado" name="nuevoEnviado"
+          value="<?php echo $_SESSION["id"]; ?>" >
 
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
 
@@ -369,6 +447,8 @@ $crearTramite->ctrCrearTramite();
   </div>
 
 </div>
+
+
 
 
 <!--=====================================
@@ -413,9 +493,11 @@ MODAL EDITAR TRAMITE
 
                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 
-                <input type="text" class="form-control input-lg" id="editarFecha" name="editarFecha" placeholder="Editar fecha *" data-inputmask="'alias': 'yyyy-mm-dd'" data-mask required readonly>
+                <input type="text" class="form-control input-lg" id="editarFecha" placeholder="Editar fecha *" data-inputmask="'alias': 'yyyy-mm-dd'" data-mask readonly>
 
                 <input type="hidden" id="idTramite" name="idTramite">
+
+                <!--<input type="text" id="idSolicitudRespuesta" name="idSolicitudRespuesta">-->
 
               </div>
 
@@ -431,7 +513,7 @@ MODAL EDITAR TRAMITE
 
                 <span class="input-group-addon"><i class="fa fa fa-users"></i></span>
 
-                <select class="form-control input-lg" id="editarSolicitante" name="editarSolicitante" required>
+                <select class="form-control input-lg" id="editarSolicitante" name="editarSolicitante">
 
                         <option value="">Selecionar solicitante</option>
 
@@ -465,7 +547,7 @@ foreach ($cliente as $key => $value) {
 
                 <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
 
-                <input type="text" class="form-control input-lg" id="editarAsentamiento" name="editarAsentamiento" placeholder="Editar asentamiento" required>
+                <input type="text" class="form-control input-lg" id="editarAsentamiento" name="editarAsentamiento" placeholder="Editar asentamiento">
 
               </div>
 
@@ -481,29 +563,47 @@ foreach ($cliente as $key => $value) {
 
                 <span class="input-group-addon"><i class="fa fa-sort-numeric-asc"></i></span>
 
-                <input type="text" class="form-control input-lg" id="editarPredio" name="editarPredio" placeholder="Editar predio" required>
+                <input type="text" class="form-control input-lg" id="editarPredio" name="editarPredio" placeholder="Editar predio">
 
               </div>
 
             </div>
 
 
-            <!-- ENTRADA PARA EL TRAMITE -->
+            <!-- ENTRADA PARA TIPO DE TRAMITE -->
 
             <div class="form-group">
 
-              <label>Trámite</label>
+              <label>Tipo Trámite</label> <small> (Para agregar más tipos de trámite <a href="tipotramite">clic aquí)</a></small>
 
               <div class="input-group">
 
-                <span class="input-group-addon"><i class="fa fa-sticky-note-o"></i></span>
+                <span class="input-group-addon"><i class="fa fa fa-users"></i></span>
 
-                <input type="text" class="form-control input-lg" id="editarTramite" name="editarTramite" placeholder="Editar tramite"  required>
+                <select class="form-control input-lg" id="editarTipoTramite" name="editarTipoTramite">
 
+                        <option value="">Selecionar tipo trámite</option>
+
+                        <?php
+
+$item  = null;
+$valor = null;
+
+$tipo = ControladorTipoTramites::ctrMostrarTipoTramites($item, $valor);
+
+foreach ($tipo as $key => $value) {
+
+    echo '<option value="' . $value["id"] . '">' . $value["tipo"] . '</option>';
+}
+
+?>
+
+                      </select>
 
               </div>
 
             </div>
+
 
             <!-- ENTRADA PARA LA OBSERVACIÓN -->
 
@@ -515,7 +615,7 @@ foreach ($cliente as $key => $value) {
 
                 <span class="input-group-addon"><i class="fa  fa-search"></i></span>
 
-                <input type="text" class="form-control input-lg" id="editarObservacion" name="editarObservacion" placeholder="Editar observación *">
+                <textarea type="text" class="form-control input-lg" id="editarObservacion" name="editarObservacion" placeholder="Editar observación *" rows="3"></textarea>
 
               </div>
 
@@ -531,7 +631,7 @@ foreach ($cliente as $key => $value) {
 
                 <span class="input-group-addon"><i class="fa fa-th"></i></span>
 
-                <select class="form-control input-lg" id="editarEstado" name="editarEstado" required>
+                <select class="form-control input-lg" id="editarEstado" name="editarEstado">
 
                         <option value="">Selecionar estado</option>
 
@@ -555,23 +655,36 @@ foreach ($estados as $key => $value) {
 
             </div>
 
-            <!-- ENTRADA PARA ID USUARIO -->
+            <!-- ENTRADA SOLICITUD DE RESPUESTA  formularioTramite-->
 
-            <div class="form-group">
+            <div class="formularioTramite" align="center">
 
-              <!--<label>Usuario</label>-->
+              <h2 id="idEditarSolicitudRespuesta">¿Desea dar respuesta a este trámite?</h2>
 
-              <div class="input-group">
+                  <input type="radio" name="editarSolicitudRespuesta" id="siT" value="1">
+                  <label for="siT">Si dar respuesta</label>
 
-                <!--<span class="input-group-addon"><i class="fa fa-user"></i></span>-->
-
-                <input type="hidden" class="form-control input-lg" id="editarEnviado" name="editarEnviado" value="<?php echo $_SESSION["id"]; ?>" required>
-
-              </div>
+                  <input type="radio" name="editarSolicitudRespuesta" id="noT" value="0" checked>
+                  <label for="noT">No dar respuesta</label>
 
             </div>
 
 
+            <!-- ENTRADA PARA LA RESPUESTA -->
+
+            <div class="form-group">
+
+              <label>Respuesta</label>
+
+              <div class="input-group">
+
+                <span class="input-group-addon"><i class="fa fa-sticky-note-o"></i></span>
+
+                <input type="text" class="form-control input-lg" id="editarRespuesta" name="editarRespuesta" placeholder="Editar respuesta">
+
+              </div>
+
+            </div>
 
           </div>
 
@@ -582,6 +695,9 @@ foreach ($estados as $key => $value) {
         ======================================-->
 
         <div class="modal-footer">
+
+          <!--esta entrada para futuro desarrollos (value) para capturar el ultimo que modifico el tramite-->
+          <input type="hidden" class="form-control input-lg" id="editarEnviado" name="editarEnviado" required readonly>
 
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
 
@@ -612,9 +728,6 @@ $eliminarTramite = new ControladorTramites();
 $eliminarTramite->ctrEliminarTramite();
 
 ?>
-
-
-
 
 
 
@@ -654,6 +767,8 @@ MODAL AGREGAR CLIENTE
 
             <div class="form-group">
 
+              <label>Nombre Completo</label>
+
               <div class="input-group">
 
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
@@ -667,6 +782,8 @@ MODAL AGREGAR CLIENTE
             <!-- ENTRADA PARA EL DOCUMENTO ID -->
 
             <div class="form-group">
+
+              <label>Cédula o Pasaporte</label>
 
               <div class="input-group">
 
@@ -682,6 +799,8 @@ MODAL AGREGAR CLIENTE
 
             <div class="form-group">
 
+              <label>Correo Electrónico</label>
+
               <div class="input-group">
 
                 <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
@@ -695,6 +814,8 @@ MODAL AGREGAR CLIENTE
             <!-- ENTRADA PARA EL TELÉFONO FIJO -->
 
             <div class="form-group">
+
+              <label>Número Telefónico</label>
 
               <div class="input-group">
 
@@ -711,6 +832,8 @@ MODAL AGREGAR CLIENTE
 
             <div class="form-group">
 
+              <label>Número Telefónico</label>
+
               <div class="input-group">
 
                 <span class="input-group-addon"><i class="fa fa-mobile-phone"></i></span>
@@ -724,6 +847,8 @@ MODAL AGREGAR CLIENTE
             <!-- ENTRADA PARA LA DIRECCIÓN -->
 
             <div class="form-group">
+
+              <label>Dirección</label>
 
               <div class="input-group">
 
@@ -739,6 +864,8 @@ MODAL AGREGAR CLIENTE
 
             <div class="form-group">
 
+              <label>Fecha Nacimiento</label>
+
               <div class="input-group">
 
                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -752,6 +879,8 @@ MODAL AGREGAR CLIENTE
             <!-- ENTRADA PARA OBSERVACION -->
 
             <div class="form-group">
+
+              <label>Observaciones</label>
 
               <div class="input-group">
 

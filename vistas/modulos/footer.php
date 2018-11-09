@@ -1,7 +1,7 @@
 <footer class="main-footer">
 
 
-	<strong>Copyright &copy;
+	<strong>UNIVERSIDAD NACIONAL &copy;
 
 		<?php
 $fundado   = 2018;

@@ -12,7 +12,7 @@ class ModeloOficios
     public static function mdlIngresarOficio($tabla, $datos)
     {
 
-        $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(fecha, oficio, ano, dirigidoA, asunto, enviadoPor, plazoRespuesta, idEstado) VALUES (:fecha, :oficio, :ano, :dirigidoA, :asunto, :enviadoPor, :plazoRespuesta, :idEstado)");
+        $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(fecha, oficio, ano, dirigidoA, asunto, enviadoPor, plazoRespuesta, idEstado, idUsuario, seguimiento) VALUES (:fecha, :oficio, :ano, :dirigidoA, :asunto, :enviadoPor, :plazoRespuesta, :idEstado, :idUsuario, :seguimiento)");
 
         $stmt->bindParam(":fecha", $datos["fecha"], PDO::PARAM_STR);
         $stmt->bindParam(":oficio", $datos["oficio"], PDO::PARAM_INT);
@@ -22,10 +22,10 @@ class ModeloOficios
         $stmt->bindParam(":enviadoPor", $datos["enviadoPor"], PDO::PARAM_STR);
         $stmt->bindParam(":plazoRespuesta", $datos["plazoRespuesta"], PDO::PARAM_STR);
         $stmt->bindParam(":idEstado", $datos["idEstado"], PDO::PARAM_INT);
+        $stmt->bindParam(":idUsuario", $datos["idUsuario"], PDO::PARAM_INT);
+        $stmt->bindParam(":seguimiento", $datos["seguimiento"], PDO::PARAM_INT);
 
-        $stmtCall = Conexion::conectar()->prepare("CALL ContadorOficio()");
-
-        if ($stmt->execute() && $stmtCall->execute()) {
+        if ($stmt->execute()) {
 
             return "ok";
 
@@ -41,22 +41,37 @@ class ModeloOficios
     }
 
     /*=============================================
+    ASIGNANDO NUMERO DE OFICIO CONSULTANDO A LA BASE DE DATOS
+    =============================================*/
+
+    public static function consecutivo_oficio()
+    {
+
+        $consecutivo_oficio = Conexion::conectar()->prepare("SELECT consecutivo_oficio() AS consecutivo_oficio");
+
+        return $consecutivo_oficio;
+
+    }
+
+    /*=============================================
     CREAR OFICIO AÑO NUEVO
     =============================================*/
 
     public static function mdlIngresarOficioAnoNuevo($tabla, $datos)
     {
 
-        $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(fecha, oficio, ano, dirigidoA, asunto, enviadoPor, plazoRespuesta, idEstado) VALUES (:fecha, :oficio, :ano, :dirigidoA, :asunto, :enviadoPor, :plazoRespuesta, :idEstado)");
+        $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(fecha, oficio, ano, dirigidoA, asunto, enviadoPor, plazoRespuesta, idEstado, idUsuario, seguimiento) VALUES (:fecha, :oficio, :ano, :dirigidoA, :asunto, :enviadoPor, :plazoRespuesta, :idEstado, :idUsuario, :seguimiento)");
 
         $stmt->bindParam(":fecha", $datos["fecha"], PDO::PARAM_STR);
-        $stmt->bindParam(":oficio", $datos["oficio"], PDO::PARAM_INT);
+        $stmt->bindParam(":oficio", $oficio, PDO::PARAM_INT);
         $stmt->bindParam(":ano", $datos["ano"], PDO::PARAM_INT);
         $stmt->bindParam(":dirigidoA", $datos["dirigidoA"], PDO::PARAM_STR);
         $stmt->bindParam(":asunto", $datos["asunto"], PDO::PARAM_STR);
         $stmt->bindParam(":enviadoPor", $datos["enviadoPor"], PDO::PARAM_STR);
         $stmt->bindParam(":plazoRespuesta", $datos["plazoRespuesta"], PDO::PARAM_STR);
         $stmt->bindParam(":idEstado", $datos["idEstado"], PDO::PARAM_INT);
+        $stmt->bindParam(":idUsuario", $datos["idUsuario"], PDO::PARAM_INT);
+        $stmt->bindParam(":seguimiento", $datos["seguimiento"], PDO::PARAM_INT);
 
         if ($stmt->execute()) {
 
@@ -70,6 +85,9 @@ class ModeloOficios
 
         $stmt->close();
         $stmt = null;
+
+        $oficio->close();
+        $oficio = null;
 
     }
 
@@ -93,7 +111,40 @@ class ModeloOficios
         } else {
             //ORDER BY id DESC
 
-            $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
+            $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla ORDER BY id DESC");
+
+            $stmt->execute();
+
+            return $stmt->fetchAll();
+
+        }
+
+        $stmt->close();
+
+        $stmt = null;
+
+    }
+
+    /*=============================================
+    MOSTRAR OFICIOS
+    =============================================*/
+
+    public static function mdlMostrarOficiosSeguimiento($tabla, $item, $valor)
+    {
+
+        if ($item != null) {
+
+            $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :$item");
+
+            $stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
+
+            $stmt->execute();
+
+            return $stmt->fetch();
+
+        } else {
+
+            $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE seguimiento =1 ORDER BY id DESC");
 
             $stmt->execute();
 
@@ -114,7 +165,7 @@ class ModeloOficios
     public static function mdlEditarOficio($tabla, $datos)
     {
 
-        $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET fecha = :fecha, oficio = :oficio, dirigidoA = :dirigidoA, asunto = :asunto, enviadoPor = :enviadoPor, plazoRespuesta = :plazoRespuesta, idEstado = :idEstado WHERE id = :id");
+        $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET fecha = :fecha, oficio = :oficio, dirigidoA = :dirigidoA, asunto = :asunto, enviadoPor = :enviadoPor, plazoRespuesta = :plazoRespuesta, idEstado = :idEstado, seguimiento=:seguimiento WHERE id = :id");
 
         $stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
         $stmt->bindParam(":fecha", $datos["fecha"], PDO::PARAM_STR);
@@ -124,6 +175,7 @@ class ModeloOficios
         $stmt->bindParam(":enviadoPor", $datos["enviadoPor"], PDO::PARAM_STR);
         $stmt->bindParam(":plazoRespuesta", $datos["plazoRespuesta"], PDO::PARAM_STR);
         $stmt->bindParam(":idEstado", $datos["idEstado"], PDO::PARAM_INT);
+        $stmt->bindParam(":seguimiento", $datos["seguimiento"], PDO::PARAM_INT);
 
         if ($stmt->execute()) {
 

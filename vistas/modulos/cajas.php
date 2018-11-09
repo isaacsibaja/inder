@@ -57,7 +57,7 @@ $totalEstados = count($estados);
 
       <h3><?php echo number_format($totalTramites); ?></h3>
 
-      <p>Tramites</p>
+      <p>Trámites</p>
 
     </div>
 

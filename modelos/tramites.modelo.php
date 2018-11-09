@@ -4,7 +4,6 @@ require_once "conexion.php";
 
 class ModeloTramites
 {
-
     /*=============================================
     CREAR TRAMITE
     =============================================*/
@@ -12,13 +11,15 @@ class ModeloTramites
     public static function mdlIngresarTramite($tabla, $datos)
     {
 
-        $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(fecha, idCliente, asentamiento, predio, tramite, observacion, idEstado, idUsuario) VALUES (:fecha, :idCliente, :asentamiento, :predio, :tramite, :observacion, :idEstado, :idUsuario)");
+        $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(fecha, idCliente, asentamiento, predio, idTipoTramite, solicitudRespuesta, respuesta, observacion, idEstado, idUsuario) VALUES (:fecha, :idCliente, :asentamiento, :predio, :idTipoTramite, :solicitudRespuesta, :respuesta, :observacion, :idEstado, :idUsuario)");
 
         $stmt->bindParam(":fecha", $datos["fecha"], PDO::PARAM_STR);
         $stmt->bindParam(":idCliente", $datos["idCliente"], PDO::PARAM_INT);
         $stmt->bindParam(":asentamiento", $datos["asentamiento"], PDO::PARAM_STR);
         $stmt->bindParam(":predio", $datos["predio"], PDO::PARAM_STR);
-        $stmt->bindParam(":tramite", $datos["tramite"], PDO::PARAM_STR);
+        $stmt->bindParam(":idTipoTramite", $datos["idTipoTramite"], PDO::PARAM_INT);
+        $stmt->bindParam(":solicitudRespuesta", $datos["solicitudRespuesta"], PDO::PARAM_INT);
+        $stmt->bindParam(":respuesta", $datos["respuesta"], PDO::PARAM_STR);
         $stmt->bindParam(":observacion", $datos["observacion"], PDO::PARAM_STR);
         $stmt->bindParam(":idEstado", $datos["idEstado"], PDO::PARAM_INT);
         $stmt->bindParam(":idUsuario", $datos["idUsuario"], PDO::PARAM_INT);
@@ -56,8 +57,9 @@ class ModeloTramites
             return $stmt->fetch();
 
         } else {
+            // ORDER BY id DESC
 
-            $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
+            $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla ORDER BY id DESC");
 
             $stmt->execute();
 
@@ -75,17 +77,33 @@ class ModeloTramites
     EDITAR TRAMITE
     =============================================*/
 
+    /*$datos = array("id"  => $_POST["idTramite"],
+    "fecha"              => $_POST["editarFecha"],
+    "idCliente"          => $_POST["editarSolicitante"],
+    "asentamiento"       => $_POST["editarAsentamiento"],
+    "predio"             => $_POST["editarPredio"],
+    "idTipoTramite"      => $_POST["editarTipoTramite"],
+    "solicitudRespuesta" => $_POST["editarSolicitudRespuesta"],
+    "respuesta"          => $_POST["editarRespuesta"],
+    "observacion"        => $_POST["editarObservacion"],
+    "idEstado"           => $_POST["editarEstado"],
+    "idUsuario"          => $_POST["editarEnviado"]);*/
+
     public static function mdlEditarTramite($tabla, $datos)
     {
 
-        $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET fecha = :fecha, idCliente = :idCliente, asentamiento = :asentamiento, predio = :predio, tramite = :tramite, observacion = :observacion, idEstado = :idEstado, idUsuario = :idUsuario WHERE id = :id");
+        $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET fecha = :fecha, idCliente = :idCliente, asentamiento = :asentamiento, predio = :predio, idTipoTramite = :idTipoTramite, solicitudRespuesta = :solicitudRespuesta, respuesta = :respuesta, observacion = :observacion, idEstado = :idEstado, idUsuario = :idUsuario WHERE id = :id");
 
         $stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
         $stmt->bindParam(":fecha", $datos["fecha"], PDO::PARAM_STR);
         $stmt->bindParam(":idCliente", $datos["idCliente"], PDO::PARAM_INT);
         $stmt->bindParam(":asentamiento", $datos["asentamiento"], PDO::PARAM_STR);
         $stmt->bindParam(":predio", $datos["predio"], PDO::PARAM_STR);
-        $stmt->bindParam(":tramite", $datos["tramite"], PDO::PARAM_STR);
+
+        $stmt->bindParam(":idTipoTramite", $datos["idTipoTramite"], PDO::PARAM_INT);
+        $stmt->bindParam(":solicitudRespuesta", $datos["solicitudRespuesta"], PDO::PARAM_INT);
+        $stmt->bindParam(":respuesta", $datos["respuesta"], PDO::PARAM_STR);
+
         $stmt->bindParam(":observacion", $datos["observacion"], PDO::PARAM_STR);
         $stmt->bindParam(":idEstado", $datos["idEstado"], PDO::PARAM_INT);
         $stmt->bindParam(":idUsuario", $datos["idUsuario"], PDO::PARAM_INT);

@@ -2,47 +2,20 @@
 FUNCIÓN CUADRO DE COLOR
 =============================================*/
 
-$(".tablas").change(function(){
+/*$(".tablas").function(){
 
 	var idEstado = $(this).attr("idEstado");
-	var colorpicker = $(this).attr("colorpicker");
+	var color = $(this).attr("color");
 
-	var datos = new FormData();
-	datos.append("idEstado", idEstado);
-  	datos.append("colorpicker", colorpicker);
+	if (color != "") {
 
-	$.ajax({
-
-	  url:"ajax/estados.ajax.php",
-	  method: "POST",
-	  data: datos,
-	  cache: false,
-      contentType: false,
-      processData: false,
-      success: function(respuesta){
-
-      }
-
-  	})
-
-
-	if (colorpicker == "#000000") {
-
-		$(this).addClass('btn-danger');
-  		$(this).html('Negro');
+		$(this).addClass('color');
+  		$(this).html('color');
 
 	}
 
-
-
 	
-})
-
-
-
-
-
-
+}*/
 
 
 

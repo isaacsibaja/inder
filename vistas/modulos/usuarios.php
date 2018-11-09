@@ -5,7 +5,7 @@
     <h1>
 
       Administrar usuarios
-       <small>(Todos los usuarios)</small>
+       <small>(Usuarios con acceso al sistema)</small>
 
     </h1>
 
@@ -102,7 +102,7 @@ foreach ($usuarios as $key => $value) {
 
     if ($_SESSION["perfil"] == "Administrador") {
 
-        echo '<button class="btn btn-danger btnEliminarUsuario" idUsuario="' . $value["id"] . '" fotoUsuario="' . $value["foto"] . '" usuario="' . $value["usuario"] . '"><i class="fa fa-times"></i></button>';
+        //echo '<button class="btn btn-danger btnEliminarUsuario" idUsuario="' . $value["id"] . '" fotoUsuario="' . $value["foto"] . '" usuario="' . $value["usuario"] . '"><i class="fa fa-times"></i></button>';
 
     }
 
@@ -166,6 +166,8 @@ MODAL AGREGAR USUARIO
 
             <div class="form-group">
 
+              <label>Nombre Completo</label>
+
               <div class="input-group">
 
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
@@ -180,13 +182,17 @@ MODAL AGREGAR USUARIO
 
              <div class="form-group">
 
+              <label>Nombre Usuario</label>
+
               <div class="input-group">
 
                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
 
-                <input type="text" class="form-control input-lg" id="nuevoUsuario" name="nuevoUsuario" placeholder="Ingresar usuario"required>
+                <input type="text" class="form-control input-lg" id="nuevoUsuario" name="nuevoUsuario" placeholder="Ingresar usuario *"required>
 
               </div>
+
+              <small style="color: gray">Nombre Usuario requerido para ingresar al sistema.</small>
 
             </div>
 
@@ -194,19 +200,25 @@ MODAL AGREGAR USUARIO
 
              <div class="form-group">
 
+              <label>Contraseña</label>
+
               <div class="input-group">
 
                 <span class="input-group-addon"><i class="fa fa-lock"></i></span>
 
-                <input type="password" class="form-control input-lg" id="nuevoPassword" name="nuevoPassword" placeholder="Ingresar contraseña" required>
+                <input type="password" class="form-control input-lg" id="nuevoPassword" name="nuevoPassword" placeholder="Ingresar contraseña *" required>
 
               </div>
+
+              <small style="color: gray">Contraseña requerido para ingresar al sistema.</small>
 
             </div>
 
             <!-- ENTRADA PARA SELECCIONAR SU PERFIL -->
 
             <div class="form-group">
+
+              <label>Perfil Usuario</label>
 
               <div class="input-group">
 
@@ -307,6 +319,8 @@ MODAL EDITAR USUARIO
 
             <div class="form-group">
 
+              <label>Nombre Completo</label>
+
               <div class="input-group">
 
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
@@ -321,11 +335,13 @@ MODAL EDITAR USUARIO
 
              <div class="form-group">
 
+              <label>Nombre Usuario</label>
+
               <div class="input-group">
 
                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
 
-                <input type="text" class="form-control input-lg" id="editarUsuario" name="editarUsuario" value="" readonly>
+                <input type="text" class="form-control input-lg" id="editarUsuario" name="editarUsuario"readonly>
 
               </div>
 
@@ -334,6 +350,8 @@ MODAL EDITAR USUARIO
             <!-- ENTRADA PARA LA CONTRASEÑA -->
 
              <div class="form-group">
+
+              <label>Contraseña</label>
 
               <div class="input-group">
 
@@ -350,6 +368,8 @@ MODAL EDITAR USUARIO
             <!-- ENTRADA PARA SELECCIONAR SU PERFIL -->
 
             <div class="form-group">
+
+              <label>Perfil Usuario</label>
 
               <div class="input-group">
 
@@ -397,7 +417,7 @@ MODAL EDITAR USUARIO
 
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
 
-          <button type="submit" class="btn btn-primary">Modificar usuario</button>
+          <button type="submit" class="btn btn-primary">Guardar cambios</button>
 
         </div>
 
@@ -418,7 +438,7 @@ $editarUsuario->ctrEditarUsuario();
 
 <?php
 
-$borrarUsuario = new ControladorUsuarios();
-$borrarUsuario->ctrBorrarUsuario();
+//$borrarUsuario = new ControladorUsuarios();
+//$borrarUsuario->ctrBorrarUsuario();
 
 ?>

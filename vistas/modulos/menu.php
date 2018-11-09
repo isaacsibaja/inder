@@ -16,7 +16,7 @@ if ($_SESSION["foto"] != "") {
 
 }
 
-?>>
+?>
         </div>
         <div class="pull-left info">
           <p><?php echo $_SESSION["nombre"]; ?></p>
@@ -27,7 +27,7 @@ if ($_SESSION["foto"] != "") {
 		<ul class="sidebar-menu">
 
 			<li class="header">MENU PRINCIPAL</li>
-			<!--   <li class="active">   -->
+
 			<li>
 				<a href="inicio">
 					<i class="fa fa-home"></i>
@@ -52,14 +52,6 @@ if ($_SESSION["foto"] != "") {
 			</li>
 
 
-			<li>
-				<a href="oficios">
-					<i class="fa fa-list"></i>
-					<span>Oficios</span>
-				</a>
-			</li>
-
-
 			<li >
 				<a href="clientes">
 					<i class="fa fa-users"></i>
@@ -67,24 +59,90 @@ if ($_SESSION["foto"] != "") {
 				</a>
 			</li>
 
-			<li >
-				<a href="tramites">
+
+			<li class="treeview">
+
+				<a href="#">
+
 					<i class="fa fa-folder-open"></i>
-					<span>Tramites</span>
+
+					<span>Trámites</span>
+
+					<span class="pull-right-container">
+
+						<i class="fa fa-angle-left pull-right"></i>
+
+					</span>
+
 				</a>
+
+				<ul class="treeview-menu">
+
+					<li >
+						<a href="tramites">
+							<i class="fa fa-folder-open"></i>
+							<span>Administrar Trámites</span>
+						</a>
+					</li>
+
+					<li>
+						<a href="tipotramite">
+							<i class="fa fa-file-text-o"></i>
+							<span>Tipo Trámites</span>
+						</a>
+
+					</li>
+
+				</ul>
+
 			</li>
 
+
+			<li class="treeview">
+
+				<a href="#">
+
+					<i class="fa fa-list-ul"></i>
+
+					<span>Oficios</span>
+
+					<span class="pull-right-container">
+
+						<i class="fa fa-angle-left pull-right"></i>
+
+					</span>
+
+				</a>
+
+				<ul class="treeview-menu">
+
+					<li>
+						<a href="oficios">
+							<i class="fa fa-list"></i>
+							Administrar Oficios
+						</a>
+					</li>
+
+					<li>
+						<a href="seguimiento">
+							<i class="fa fa-share"></i>
+							Seguimiento Oficios
+						</a>
+
+					</li>
+
+				</ul>
+
+			</li>
+
+			<li class="header">CONFIGURACIÓN</li>
 
 			<li>
-				<a href="salir">
-					<i class="fa fa-times-circle text-aqua"></i>
-					<span>Cerrar Sesión</span>
+				<a href="instituto">
+					<i class="fa fa-cog"></i>
+					<span>Instituto</span>
 				</a>
 			</li>
-
-
-
-		</ul>
 
 	</section>
 

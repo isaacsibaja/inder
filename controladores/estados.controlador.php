@@ -36,7 +36,9 @@ class ControladorEstados
 
                                     window.location = "estados";
 
-                                    }
+                                    }else{
+                                      window.location = "estados";
+                                  }
                                 })
 
                     </script>';

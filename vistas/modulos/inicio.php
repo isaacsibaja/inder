@@ -5,7 +5,7 @@
     <h1>
 
       Tablero
-      <small>Panel de Control</small>
+      <small>(Panel de Control)</small>
 
     </h1>
 
@@ -21,42 +21,11 @@
 
   <section class="content">
 
-    <div class="box">
-
-      <!--<div class="box-header with-border">
-
-        <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarLabor">
-
-          Agregar labor
-
-        </button>
-
-      </div>-->
+    <div class="box with-border">
 
       <div class="box-body">
 
-        <h3 class="box-title">Labores del Personal OTHO</h3>
-
-        <style type="text/css">
-
-          .fc th{
-            padding: 10px 0px;
-            vertical-align: middle;
-            background: #006666;
-            color: #ffffff;
-
-          }
-
-          .fc-sun {
-            background: #f2f2ff;
-          }
-
-          .fc-center {
-            text-transform: uppercase;
-          }
-
-        </style>
-
+        <h3>Labores del Personal OTTO</h3>
 
           <div class="container">
 
@@ -129,27 +98,59 @@ MODAL AGREGAR LABOR
 
             <!-- ENTRADA PARA INICIO (HORA Y FECHA) DE LA LABOR -->
 
-            <div class="form-group">
+            <div class="form-row">
 
-              <label>Inicio | Hora</label>
+              <div class="form-group col-lg-6" data-autoclose="true">
 
-              <div class="input-group col-xs-12">
+                <label>Fecha Inicio</label>
 
                 <input type="hidden" id="id" name="id" required>
 
                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 
-                <input type="text" class="form-control input-lg col-xs-6" id="inicioLabor" name="inicioLabor" placeholder="Ingresar fecha inicio" required>
+                <input type="text" class="form-control input-lg" id="inicioLabor" name="inicioLabor" placeholder="Ingresar fecha inicio" required>
 
+              </div>
+
+              <div class="form-group inicioHoraLabor col-lg-6" data-autoclose="true">
+
+                <label>Hora</label>
 
                 <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
 
-                <input type="text" class="form-control input-lg col-xs-6" id="inicioHoraLabor" name="inicioHoraLabor" placeholder="Ingresar fecha inicio" value="08:00:00" required>
-
+                <input type="text" class="form-control input-lg" value="08:00" id="inicioHoraLabor" name="inicioHoraLabor" required/>
 
               </div>
 
             </div>
+
+
+            <!-- ENTRADA PARA FINAL (HORA Y FECHA) DE LA LABOR -->
+
+            <div class="form-row">
+
+              <div class="form-group col-lg-6" data-autoclose="true">
+
+                <label>Fecha Final</label>
+
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+
+                <input type="text" class="form-control input-lg" id="finalLabor" name="finalLabor" placeholder="Ingresar fecha final" required>
+
+              </div>
+
+              <div class="form-group finalHoraLabor col-lg-6" data-autoclose="true">
+
+                <label>Hora</label>
+
+                <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+
+                <input type="text" class="form-control input-lg" id="finalHoraLabor" name="finalHoraLabor" value="16:00" required/>
+
+              </div>
+
+            </div>
+
 
             <!-- ENTRADA PARA EL TITULO -->
 
@@ -161,7 +162,7 @@ MODAL AGREGAR LABOR
 
                 <span class="input-group-addon"><i class="fa fa-edit"></i></span>
 
-                <input type="text" class="form-control input-lg" id="tituloLabor" name="tituloLabor" placeholder="Ingresar título *" required>
+                <input type="text" class="form-control input-lg" id="tituloLabor" name="tituloLabor" placeholder="Ingresar título labor *" required>
 
               </div>
 
@@ -177,7 +178,7 @@ MODAL AGREGAR LABOR
 
                 <span class="input-group-addon"><i class="fa  fa-sort-amount-desc"></i></span>
 
-                <textarea type="text" class="form-control input-lg" id="descripcionLabor" name="descripcionLabor" placeholder="Ingresar descripción *" rows="3" required></textarea>
+                <textarea type="text" class="form-control input-lg" id="descripcionLabor" name="descripcionLabor" placeholder="Ingresar descripción labor *" rows="3" required></textarea>
 
               </div>
 
@@ -195,7 +196,8 @@ MODAL AGREGAR LABOR
 
                 <select type="text" class="form-control input-lg" id="etiquetaLabor" name="etiquetaLabor" placeholder="Ingresar color etiqueta *" value="red" required>
 
-                  option value="">Selecionar un color</option>
+
+                  <option value="">Selecionar un color</option>
                   <option value="red">Rojo</option>
                   <option value="grey">Gris</option>
                   <option value="green">Verde</option>
@@ -239,28 +241,6 @@ MODAL AGREGAR LABOR
 
             </div>
 
-            <!-- ENTRADA PARA FINAL (HORA Y FECHA) DE LA LABOR -->
-
-            <div class="form-group">
-
-              <label>Final | Hora</label>
-
-              <div class="input-group col-xs-12">
-
-                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-
-                <input type="text" class="form-control input-lg col-xs-6" id="finalLabor" name="finalLabor" placeholder="Ingresar fecha inicio"required>
-
-
-                <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-
-                <input type="text" class="form-control input-lg col-xs-6" id="finalHoraLabor" name="finalHoraLabor" placeholder="Ingresar fecha final" value="16:00:00" required>
-
-              </div>
-
-            </div>
-
-
 
           </div>
 
@@ -276,7 +256,14 @@ MODAL AGREGAR LABOR
 
           <button type="submit" id="btnModificarLabor" class="btn btn-warning">Modificar</button>
 
-          <button type="submit" id="btnEliminarLabor" class="btn btn-danger">Borrar</button>
+          <?php
+
+if ($_SESSION["perfil"] == "Administrador") {
+
+    echo '<button type="submit" id="btnEliminarLabor" class="btn btn-danger">Borrar</button>';
+
+}
+?>
 
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
 

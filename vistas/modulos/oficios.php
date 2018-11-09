@@ -5,7 +5,7 @@
     <h1>
 
       Administrar oficios
-      <small>(todos los oficios)</small>
+      <small>(Todos los oficios)</small>
 
     </h1>
 
@@ -31,15 +31,23 @@
 
         </button>
 
-        <?php
+        <div class="box-tool pull-right">
+
+          <?php
 
 if ($_SESSION["perfil"] == "Administrador") {
 
-    echo '<button class="btn btn-danger pull-right" data-toggle="modal" data-target="#btnAgregarPrimerOficioAnual"><i class="fa fa-pencil"></i> Agregar Primer Oficio Anual</button>';
+    echo '<button class="btn btn-danger pull-right" data-toggle="modal" data-target="#btnAgregarPrimerOficioAnual" style="margin-left: 3px">Agregar Primer Oficio Anual</button>';
 
 }
 
+echo '<a href="vistas/modulos/descargar-reporte-oficios.php?Reporte=Reporte">
+            <button class="btn btn-success">Descargar reporte de oficios</button>
+          </a>';
 ?>
+
+        </div>
+
 
       </div>
 
@@ -56,9 +64,9 @@ if ($_SESSION["perfil"] == "Administrador") {
            <th>Oficio</th>
            <th>Dirigido</th>
            <th>Asunto</th>
-           <th>Enviado</th>
-           <th>Plazo</th>
+           <th>Elaborado por</th>
            <th>Estado</th>
+           <th style="width:5px">Seg</th>
            <th>Acciones</th>
 
          </tr>
@@ -91,26 +99,39 @@ foreach ($oficios as $key => $value) {
 
                     <td>' . $value["asunto"] . '</td>
 
-                    <td>' . $value["enviadoPor"] . '</td>
+                    <td>' . $value["enviadoPor"] . '</td>';
 
-                    <td>' . $value["plazoRespuesta"] . '</td>';
+    $PermisoModificar = $value["idUsuario"];
 
-    $itemCliente  = "id";
-    $valorCliente = $value["idEstado"];
+    $itemEstado  = "id";
+    $valorEstado = $value["idEstado"];
 
-    $respuestaCliente = ControladorEstados::ctrMostrarEstados($itemCliente, $valorCliente);
+    $respuestaEstado = ControladorEstados::ctrMostrarEstados($itemEstado, $valorEstado);
 
-    echo '<td>' . $respuestaCliente["estado"] . '</td>
+    echo '<td>' . $respuestaEstado["estado"] . '</td>';
 
-                    <td>
+    $si = "Si";
+    $no = "No";
 
-                      <div class="btn-group">
+    if ($value["seguimiento"] == "1") {
+        echo '<td align="center">' . $si . '</td>';
+    } else {
+        echo '<td align="center">' . $no . '</td>';
+    }
 
-                        <button class="btn btn-warning btnEditarOficio" data-toggle="modal" data-target="#modalEditarOficio" idOficio="' . $value["id"] . '"><i class="fa fa-pencil"></i></button>';
+    echo '<td>
 
-    if ($_SESSION["perfil"] == "Administrador") {
+            <div class="btn-group">';
 
-        echo '<button class="btn btn-danger btnEliminarOficio" idOficio="' . $value["id"] . '"><i class="fa fa-times"></i></button>';
+    if ($_SESSION["perfil"] == "Usuario" && $_SESSION["id"] == $PermisoModificar) {
+
+        echo '<button class="btn btn-warning btnEditarOficio" data-toggle="modal" data-target="#modalEditarOficio" idOficio="' . $value["id"] . '"><i class="fa fa-pencil"></i></button>';
+
+    } elseif ($_SESSION["perfil"] == "Administrador") {
+
+        echo '<button class="btn btn-warning btnEditarOficio" data-toggle="modal" data-target="#modalEditarOficio" idOficio="' . $value["id"] . '"><i class="fa fa-pencil"></i></button>';
+
+        /*echo '<button class="btn btn-danger btnEliminarOficio" idOficio="' . $value["id"] . '"><i class="fa fa-times"></i></button>';*/
 
     }
 
@@ -178,14 +199,31 @@ MODAL AGREGAR OFICIO
 
                 <span class="input-group-addon"><i class="fa fa-calendar-check-o"></i></span>
 
-                <input type="text" class="form-control input-lg" id="nuevaFecha" name="nuevaFecha" value="<?php echo date("Y-m-d"); ?>" data-inputmask="'alias': 'yyyy-mm-dd'" data-mask placeholder="Ingresar fecha *" required readonly>
+                <?php
+date_default_timezone_set('America/Costa_Rica');
+$fecha = date('Y-m-d');
+?>
+
+                <input type="text" class="form-control input-lg" id="nuevaFecha" name="nuevaFecha" value="<?php echo $fecha ?>" data-inputmask="'alias': 'yyyy-mm-dd'" data-mask placeholder="Ingresar fecha *" required readonly>
+
+                <input type="hidden" id="idUsuario" name="idUsuario" value="<?php echo $_SESSION["id"]; ?>">
 
 
               </div>
 
             </div>
 
-            <!--ENTRADA PARA EL OFICIO ESTA EN EL DIV DEL BOTON GUARDAR-->
+            <!-- ENTRADA PARA DIRIGIDO A -->
+
+            <div class="form-group">
+
+              <div class="input-group">
+
+                <input type="hidden" class="form-control input-lg" id="nuevoOficio" name="nuevoOficio" required>
+
+              </div>
+
+            </div>
 
 
             <!-- ENTRADA PARA DIRIGIDO A -->
@@ -214,9 +252,7 @@ MODAL AGREGAR OFICIO
 
                 <span class="input-group-addon"><i class="fa fa-tasks"></i></span>
 
-                <input type="text" class="form-control input-lg" id="nuevoAsunto" name="nuevoAsunto" placeholder="Ingresar asunto *" required>
-
-                <!--<textarea class="form-control" rows="5" id="comment"></textarea>-->
+                <textarea type="text" class="form-control input-lg" id="nuevoAsunto" name="nuevoAsunto" placeholder="Ingresar asunto *" rows="3" required></textarea>
 
               </div>
 
@@ -289,9 +325,25 @@ foreach ($estados as $key => $value) {
 
                       </select>
 
+
+
                     </div>
 
-                  </div>
+            </div>
+
+            <!-- ENTRADA PARA SEGUIMIENTO -->
+
+            <div class="formulario" align="center">
+
+              <h2>¿Desea dar seguimiento a este oficio?</h2>
+
+                  <input type="radio" name="seguimiento" id="si" value="1">
+                  <label for="si">Si dar seguimiento</label>
+
+                  <input type="radio" name="seguimiento" id="no" value="0" checked>
+                  <label for="no">No dar seguimiento</label>
+
+            </div>
 
 
           </div>
@@ -304,14 +356,13 @@ foreach ($estados as $key => $value) {
 
         <div class="modal-footer">
 
-
-
-<?php
+          <?php
 agregarOficio();
 ?>
 
           <!--Ingresar Año-->
-          <input type="hidden" class="form-control input-lg" id="nuevoAno" name="nuevoAno" value="<?php echo date("Y"); ?>"required>
+          <input type="hidden" class="form-control input-lg" id="nuevoAno" name="nuevoAno"
+          value="<?php echo date("Y"); ?>"required>
 
           <!--Botones para guardar o cancelar el oficio-->
 
@@ -353,7 +404,7 @@ function agregarOficio()
 
     if (!$oficios) {
 
-        echo '<input type="text" class="form-control" id="nuevoOficio" name="nuevoOficio" value="0001" readonly>';
+        echo '<input type="text" class="form-control" id="nuevoOficio" name="nuevoOficio" value="1" readonly>';
 
     } else {
 
@@ -410,13 +461,16 @@ MODAL EDITAR OFICIO
 
             <div class="form-group">
 
+              <label>Fecha</label>
+
               <div class="input-group">
 
                 <span class="input-group-addon"><i class="fa fa-calendar-check-o"></i></span>
 
-                <input type="text" class="form-control input-lg" name="editarFecha" id="editarFecha" placeholder="Editar Fecha *" data-inputmask="'alias': 'yyyy-mm-dd'" data-mask required>
+                <input type="text" class="form-control input-lg" name="editarFecha" id="editarFecha" placeholder="Editar Fecha *" data-inputmask="'alias': 'yyyy-mm-dd'" data-mask required readonly>
 
                 <input type="hidden" id="idOficio" name="idOficio">
+
 
               </div>
 
@@ -425,6 +479,8 @@ MODAL EDITAR OFICIO
             <!-- ENTRADA PARA EL OFICIO -->
 
             <div class="form-group">
+
+              <label>Número Oficio</label>
 
               <div class="input-group">
 
@@ -440,6 +496,8 @@ MODAL EDITAR OFICIO
 
             <div class="form-group">
 
+              <label>Dirigido a</label>
+
               <div class="input-group">
 
                 <span class="input-group-addon"><i class="fa fa-mail-forward"></i></span>
@@ -454,11 +512,13 @@ MODAL EDITAR OFICIO
 
             <div class="form-group">
 
+              <label>Asunto</label>
+
               <div class="input-group">
 
                 <span class="input-group-addon"><i class="fa fa-tasks"></i></span>
 
-                <input type="text" class="form-control input-lg" name="editarAsunto" id="editarAsunto"  placeholder="Editar Asunto *" required>
+                <textarea type="text" class="form-control input-lg" name="editarAsunto" id="editarAsunto"  placeholder="Editar Asunto *" required rows="3"></textarea>
 
               </div>
 
@@ -467,6 +527,8 @@ MODAL EDITAR OFICIO
             <!-- ENTRADA PARA ENVIADO POR -->
 
             <div class="form-group">
+
+              <label>Enviado por</label>
 
               <div class="input-group">
 
@@ -482,6 +544,8 @@ MODAL EDITAR OFICIO
 
             <div class="form-group">
 
+              <label>Plazo Respuesta</label>
+
               <div class="input-group">
 
                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -495,6 +559,8 @@ MODAL EDITAR OFICIO
             <!-- ENTRADA PARA ESTADO -->
 
             <div class="form-group">
+
+              <label>Estado</label>
 
               <div class="input-group">
 
@@ -523,6 +589,24 @@ foreach ($estados as $key => $value) {
               </div>
 
             </div>
+
+
+            <!-- ENTRADA PARA EDITAR SEGUIMIENTO-->
+
+            <div class="formulario" align="center">
+
+              <h2>¿Desea dar seguimiento a este oficio?</h2>
+
+                  <input type="radio" name="editarSeguimiento" id="siM" value="1">
+                  <label for="siM">Si dar seguimiento</label>
+
+                  <input type="radio" name="editarSeguimiento" id="noM" value="0">
+                  <label for="noM">No dar seguimiento</label>
+
+            </div>
+
+
+
 
           </div>
 
@@ -620,6 +704,8 @@ MODAL AGREGAR OFICIO EN NUMERO UNO PARA AÑO NUEVO
                 <span class="input-group-addon"><i class="fa fa-calendar-check-o"></i></span>
 
                 <input type="text" class="form-control input-lg" id="nuevaFechaAnoNuevo" name="nuevaFechaAnoNuevo" value="<?php echo date("Y-m-d"); ?>" data-inputmask="'alias': 'yyyy-mm-dd'" data-mask placeholder="Ingresar fecha *" required readonly>
+
+                <input type="hidden" id="idUsuario" name="idUsuario" value="<?php echo $_SESSION["id"]; ?>">
 
 
               </div>
@@ -744,7 +830,25 @@ foreach ($estados as $key => $value) {
 
                   </div>
 
-                  <h5 align="center" style="color: red"><strong>El consecutivo de este oficio empezará en 1.</strong></h5>
+
+            <!-- ENTRADA PARA SEGUIMIENTO -->
+
+            <div class="formulario" align="center">
+
+              <h2>¿Desea dar seguimiento a este oficio?</h2>
+
+                  <input type="radio" name="seguimientoAnoNuevo" id="siA" value="1">
+                  <label for="siA">Si dar seguimiento</label>
+
+                  <input type="radio" name="seguimientoAnoNuevo" id="noA" value="0" checked>
+                  <label for="noA">No dar seguimiento</label>
+
+            </div>
+
+
+                  <h5 align="center" style="color: red">
+                    <strong>El consecutivo de este oficio empezará en 1.</strong>
+                  </h5>
 
 
           </div>

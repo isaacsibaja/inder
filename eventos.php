@@ -71,7 +71,7 @@ switch ($accion) {
 
         //Seleccionar todas las labores al calendario
 
-        $stmt = $pdo->prepare("SELECT * FROM labores");
+        $stmt = $pdo->prepare("SELECT * FROM labores ORDER BY id DESC");
 
         $stmt->execute();
 

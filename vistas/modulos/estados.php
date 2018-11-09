@@ -65,7 +65,7 @@ foreach ($estados as $key => $value) {
 
                     <td>' . ($key + 1) . '</td>
 
-                    <td class="text-uppercase">' . $value["estado"] . '</td>
+                    <td>' . $value["estado"] . '</td>
 
                     <td class="text-uppercase">' . $value["color"] . '</td>
 
@@ -138,6 +138,8 @@ MODAL AGREGAR ESTADO
 
             <div class="form-group">
 
+              <label>Nombre</label>
+
               <div class="input-group">
 
                 <span class="input-group-addon"><i class="fa fa-th"></i></span>
@@ -152,29 +154,29 @@ MODAL AGREGAR ESTADO
 
             <div class="form-group">
 
+              <label>Color</label>
+
               <div class="input-group">
 
                 <span class="input-group-addon"><i class="fa fa-paint-brush"></i></span>
 
                 <select class="form-control input-lg colorpicker" id="colorpicker" name="colorpicker">
 
-                  <option value="">Selecionar color</option>
-
-                  <option value="#000000">Negro</option>
-
-                  <option value="#FFFFFF">Blanco</option>
-
-                  <option value="#FF0000">Rojo</option>
-
-                  <option value="#00FF00">Verde</option>
-
-                  <option value="#0000FF">Azul</option>
-
-                  <option value="#FFFF00">Amarillo</option>
-
-                  <option value="#00FFFF">Cian</option>
-
-                  <option value="#FF00FF">Magenta</option>
+                  <option value="">Selecionar un color</option>
+                  <option value="red">Rojo</option>
+                  <option value="grey">Gris</option>
+                  <option value="green">Verde</option>
+                  <option value="yellow">Amarillo</option>
+                  <option value="Darkorange">Naranja</option>
+                  <option value="Darkmagenta">Magenta</option>
+                  <option value="Darkcyan">Cyan</option>
+                  <option value="Darkgreen">Verde Oscuro</option>
+                  <option value="Coral">Coral</option>
+                  <option value="navy">Navy</option>
+                  <option value="olivedrab">Olivo</option>
+                  <option value="violet">Violeta</option>
+                  <option value="yellowgreen">Amarillo - Verde</option>
+                  <option value="black">Negro</option>
 
                 </select>
 
@@ -243,11 +245,14 @@ MODAL EDITAR CATEGORÍA
 
         <div class="modal-body">
 
+
           <div class="box-body">
 
             <!-- ENTRADA PARA EL ESTADO -->
 
             <div class="form-group">
+
+              <label>Nombre</label>
 
               <div class="input-group">
 
@@ -266,6 +271,8 @@ MODAL EDITAR CATEGORÍA
 
             <div class="form-group">
 
+              <label>Color</label>
+
               <div class="input-group">
 
                 <span class="input-group-addon"><i class="fa fa-paint-brush"></i></span>
@@ -273,23 +280,21 @@ MODAL EDITAR CATEGORÍA
 
                 <select class="form-control input-lg" id="editarColorpicker" name="editarColorpicker">
 
-                  <option value="">Selecionar color</option>
-
-                  <option value="#000000">Negro</option>
-
-                  <option value="#FFFFFF">Blanco</option>
-
-                  <option value="#FF0000">Rojo</option>
-
-                  <option value="#00FF00">Verde</option>
-
-                  <option value="#0000FF">Azul</option>
-
-                  <option value="#FFFF00">Amarillo</option>
-
-                  <option value="#00FFFF">Cian</option>
-
-                  <option value="#FF00FF">Magenta</option>
+                  <option value="">Selecionar un color</option>
+                  <option value="red">Rojo</option>
+                  <option value="grey">Gris</option>
+                  <option value="green">Verde</option>
+                  <option value="yellow">Amarillo</option>
+                  <option value="Darkorange">Naranja</option>
+                  <option value="Darkmagenta">Magenta</option>
+                  <option value="Darkcyan">Cyan</option>
+                  <option value="Darkgreen">Verde Oscuro</option>
+                  <option value="Coral">Coral</option>
+                  <option value="navy">Navy</option>
+                  <option value="olivedrab">Olivo</option>
+                  <option value="violet">Violeta</option>
+                  <option value="yellowgreen">Amarillo - Verde</option>
+                  <option value="black">Negro</option>
 
                 </select>
 

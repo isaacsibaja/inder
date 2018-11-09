@@ -5,7 +5,7 @@
     <h1>
 
       Administrar clientes
-      <small>(todos los solicitantes, campo observación lo podemos utilizar para ingresar algún detalle extra del cliente)</small>
+      <small>(Todos los clientes o solicitantes)</small>
 
     </h1>
 
@@ -31,7 +31,20 @@
 
         </button>
 
+        <div class="box-tool pull-right">
+
+          <?php
+
+echo '<a href="vistas/modulos/descargar-reporte-clientes.php?Reporte=Reporte">
+            <button class="btn btn-success">Descargar reporte de clientes</button>
+          </a>';
+?>
+
+        </div>
+
       </div>
+
+
 
       <div class="box-body">
 
@@ -43,14 +56,14 @@
 
            <th style="width:10px">#</th>
            <th>Nombre</th>
-           <th>Documento ID</th>
+           <th>Cédula</th>
            <th>Email</th>
-           <th>Teléfono fijo</th>
-           <th>Teléfono móvil</th>
+           <th>Teléfono</th>
+           <th>Teléfono</th>
            <th>Dirección</th>
-           <th>Fecha nacimiento</th>
+           <th>Nacimiento</th>
            <th>Observación</th>
-           <th>Ingreso al sistema</th>
+           <th>Fecha</th>
            <th>Acciones</th>
 
          </tr>
@@ -160,6 +173,8 @@ MODAL AGREGAR CLIENTE
 
             <div class="form-group">
 
+              <label>Nombre Completo</label>
+
               <div class="input-group">
 
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
@@ -174,11 +189,13 @@ MODAL AGREGAR CLIENTE
 
             <div class="form-group">
 
+              <label>Cédula o Pasaporte</label>
+
               <div class="input-group">
 
                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
 
-                <input type="text" min="0" class="form-control input-lg" id="nuevoDocumentoId" name="nuevoDocumentoId" placeholder="Ingresar pasaporte o cédula *" required>
+                <input type="text" min="0" class="form-control input-lg" id="nuevoDocumentoId" name="nuevoDocumentoId" placeholder="Ingresar cédula o pasaporte *" required>
 
               </div>
 
@@ -187,6 +204,8 @@ MODAL AGREGAR CLIENTE
             <!-- ENTRADA PARA EL EMAIL -->
 
             <div class="form-group">
+
+              <label>Correo Electrónico</label>
 
               <div class="input-group">
 
@@ -201,6 +220,8 @@ MODAL AGREGAR CLIENTE
             <!-- ENTRADA PARA EL TELÉFONO FIJO -->
 
             <div class="form-group">
+
+              <label>Número Telefónico Fijo</label>
 
               <div class="input-group">
 
@@ -217,6 +238,8 @@ MODAL AGREGAR CLIENTE
 
             <div class="form-group">
 
+              <label>Número Telefónico Móvil</label>
+
               <div class="input-group">
 
                 <span class="input-group-addon"><i class="fa fa-mobile-phone"></i></span>
@@ -230,6 +253,8 @@ MODAL AGREGAR CLIENTE
             <!-- ENTRADA PARA LA DIRECCIÓN -->
 
             <div class="form-group">
+
+              <label>Dirección</label>
 
               <div class="input-group">
 
@@ -245,6 +270,10 @@ MODAL AGREGAR CLIENTE
 
             <div class="form-group">
 
+              <label>Fecha Nacimiento</label>
+
+              <small style="font-weight: bold;"> (Digite la fecha nacimiento).</small>
+
               <div class="input-group">
 
                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -259,11 +288,13 @@ MODAL AGREGAR CLIENTE
 
             <div class="form-group">
 
+              <label>Observaciones</label>
+
               <div class="input-group">
 
                 <span class="input-group-addon"><i class="fa fa-plus-square-o"></i></span>
 
-                <input type="text" class="form-control input-lg" id="nuevaObservacion" name="nuevaObservacion" placeholder="Ingresar observación">
+                <textarea type="text" class="form-control input-lg" id="nuevaObservacion" name="nuevaObservacion" placeholder="Ingresar observación" rows="3"></textarea>
 
               </div>
 
@@ -336,6 +367,8 @@ MODAL EDITAR CLIENTE
 
             <div class="form-group">
 
+              <label>Nombre Completo</label>
+
               <div class="input-group">
 
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
@@ -349,6 +382,8 @@ MODAL EDITAR CLIENTE
             <!-- ENTRADA PARA EL DOCUMENTO ID -->
 
             <div class="form-group">
+
+              <label>Cédula o Pasaporte</label>
 
               <div class="input-group">
 
@@ -364,6 +399,8 @@ MODAL EDITAR CLIENTE
 
             <div class="form-group">
 
+              <label>Correo Electrónico</label>
+
               <div class="input-group">
 
                 <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
@@ -377,6 +414,8 @@ MODAL EDITAR CLIENTE
             <!-- ENTRADA PARA EL TELÉFONO FIJO-->
 
             <div class="form-group">
+
+              <label>Número Telefónico</label>
 
               <div class="input-group">
 
@@ -392,6 +431,8 @@ MODAL EDITAR CLIENTE
 
             <div class="form-group">
 
+              <label>Número Telefónico</label>
+
               <div class="input-group">
 
                 <span class="input-group-addon"><i class="fa fa-mobile-phone"></i></span>
@@ -405,6 +446,8 @@ MODAL EDITAR CLIENTE
             <!-- ENTRADA PARA LA DIRECCIÓN -->
 
             <div class="form-group">
+
+              <label>Dirección</label>
 
               <div class="input-group">
 
@@ -420,6 +463,8 @@ MODAL EDITAR CLIENTE
 
             <div class="form-group">
 
+              <label>Fecha Nacimiento</label>
+
               <div class="input-group">
 
                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -434,11 +479,13 @@ MODAL EDITAR CLIENTE
 
             <div class="form-group">
 
+              <label>Observaciones</label>
+
               <div class="input-group">
 
                 <span class="input-group-addon"><i class="fa fa-plus-square-o"></i></span>
 
-                <input type="text" class="form-control input-lg" name="editarObservacion" id="editarObservacion" placeholder="Editar Observación">
+                <textarea type="text" class="form-control input-lg" name="editarObservacion" id="editarObservacion" placeholder="Editar Observación" rows="3"></textarea>
 
               </div>
 
