@@ -214,8 +214,7 @@ $(".tablas").on("click", ".btnEditarUsuario", function(){
 
 })
 
-
-$("#editarPerfil").on("click", "#miPerfil", function(){
+/*$("#editarPerfil").on("click", "#miPerfil", function(){
 
 	var idUsuario = $("#idUsuario").val();
 	console.log("idUsuario", idUsuario);
@@ -241,6 +240,7 @@ $("#editarPerfil").on("click", "#miPerfil", function(){
 			$("#editarPerfil").html(respuesta["perfil"]);
 			$("#editarPerfil").val(respuesta["perfil"]);
 			$("#fotoActual").val(respuesta["foto"]);
+			$("#editarEstado").val(respuesta["estado"]);
 
 			$("#passwordActual").val(respuesta["password"]);
 
@@ -253,7 +253,8 @@ $("#editarPerfil").on("click", "#miPerfil", function(){
 		}
 
 	});
-})
+})*/
+
 
 /*=============================================
 ACTIVAR USUARIO

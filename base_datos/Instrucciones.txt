@@ -1,0 +1,6 @@
+version php 7.2.9
+
+Roles del Sistema, usuario y contraseña de usuarios registrados en Base de Datos
+
+Administrador 	|	isaacsibaja 	contraseña: 123
+Usuario 		|	drodriguez 		contraseña: 123

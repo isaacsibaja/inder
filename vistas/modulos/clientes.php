@@ -189,7 +189,9 @@ MODAL AGREGAR CLIENTE
 
             <div class="form-group">
 
-              <label>Cédula o Pasaporte</label>
+              <label>Cédula o Pasaporte </label>
+
+              <small>(Puede usar guiones).</small>
 
               <div class="input-group">
 
@@ -272,7 +274,7 @@ MODAL AGREGAR CLIENTE
 
               <label>Fecha Nacimiento</label>
 
-              <small style="font-weight: bold;"> (Digite la fecha nacimiento).</small>
+              <small style="font-weight: bold;"> (año-mes-día).</small>
 
               <div class="input-group">
 

@@ -41,7 +41,7 @@ class ModeloOficios
     }
 
     /*=============================================
-    ASIGNANDO NUMERO DE OFICIO CONSULTANDO A LA BASE DE DATOS
+    ASIGNANDO NUMERO DE OFICIO CONSULTANDO A LA BASE DE DATOS EL ULTIMO CONSECUTIVO
     =============================================*/
 
     public static function consecutivo_oficio()
@@ -49,7 +49,18 @@ class ModeloOficios
 
         $consecutivo_oficio = Conexion::conectar()->prepare("SELECT consecutivo_oficio() AS consecutivo_oficio");
 
-        return $consecutivo_oficio;
+        if ($consecutivo_oficio->execute()) {
+
+            return $consecutivo_oficio;
+
+        } else {
+
+            return null;
+
+        }
+
+        $consecutivo_oficio->close();
+        $consecutivo_oficio = null;
 
     }
 
@@ -85,9 +96,6 @@ class ModeloOficios
 
         $stmt->close();
         $stmt = null;
-
-        $oficio->close();
-        $oficio = null;
 
     }
 

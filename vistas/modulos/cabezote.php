@@ -110,7 +110,7 @@ if ($_SESSION["foto"] != "") {
 
                   <div class="col-xs-4 text-center">
 
-                    <a href="#"></a>
+                    <a href="#">Tareas</a>
 
                   </div>
 

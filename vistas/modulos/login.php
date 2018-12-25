@@ -4,7 +4,7 @@
 
   <div class="login-logo">
 
-    <a href="inicio"><img src="vistas/img/plantilla/iniciarsesion.png" class="img-responsive" style="padding: 20px 100px 20px 100px"></a>
+    <a href="inicio"><img src="vistas/img/plantilla/iniciarsesion.png" class="img-responsive" style="padding: 0px 100px 15px 100px"></a>
 
   </div>
   <!-- /.login-logo -->
@@ -31,8 +31,8 @@
 
       <div class="row">
 
-        <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Ingresar</button>
+        <div class="col-xs-12">
+          <button type="submit" class="btn btn-primary btn-block btn-sx">Ingresar</button>
         </div>
 
 

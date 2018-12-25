@@ -23,12 +23,18 @@ class ControladorOficios
                 preg_match('/^[0-9]+$/', $_POST["seguimiento"]) &&
                 preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoEstado"])) {
 
-                $consecutivo_oficio = ModeloOficios::consecutivo_oficio();
+                /**
+                 *
+                 * CONSULTAMOS EL ULTIMO CONSECUTIVO DEL OFICIO Y LE SUMAMOS 1
+                 *
+                 */
+
+                $consecutivo = ModeloOficios::consecutivo_oficio();
 
                 $tabla = "oficios";
 
                 $datos = array("fecha" => $_POST["nuevaFecha"],
-                    "oficio"               => $consecutivo_oficio,
+                    "oficio"               => $consecutivo,
                     "dirigidoA"            => $_POST["nuevoDirigido"],
                     "asunto"               => $_POST["nuevoAsunto"],
                     "enviadoPor"           => $_POST["nuevoEnviado"],

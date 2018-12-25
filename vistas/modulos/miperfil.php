@@ -28,7 +28,7 @@
 
           <div class="col-lg-8">
 
-            <form role="form" method="post" enctype="multipart/form-data" id="editarPerfil">
+            <form role="form" method="post" enctype="multipart/form-data">
 
         <!--=====================================
         CUERPO DEL MODAL
@@ -50,9 +50,9 @@
 
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
 
-                <input type="text" class="form-control input-lg" id="editarNombre" name="editarNombre" value="" placeholder="Editar nombre completo" required>
+                <input type="text" class="form-control input-lg" id="editarNombre" name="editarNombre" value="<?php echo $_SESSION['nombre']; ?>" placeholder="Editar nombre completo" required>
 
-                <input type="text" value="<?php echo $_SESSION['id']; ?>" id="idUsuario" readonly>
+                <input type="hidden" value="<?php echo $_SESSION['id']; ?>" id="idUsuario" readonly>
 
               </div>
 
@@ -68,7 +68,27 @@
 
                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
 
-                <input type="text" class="form-control input-lg" id="editarUsuario" name="editarUsuario" value="" placeholder="Editar nombre usuario" readonly>
+                <input type="text" class="form-control input-lg" id="editarUsuario" name="editarUsuario" value="<?php echo $_SESSION['usuario']; ?>" placeholder="Editar nombre usuario" readonly>
+
+              </div>
+
+            </div>
+
+            <!-- ENTRADA PARA ESTADO -->
+
+             <div class="form-group">
+
+              <label>ESTADO</label>
+
+              <div class="input-group">
+
+                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+
+                <input type="text"  class="form-control input-lg" name="estadoPerfil" value="Activado" readonly>
+
+                <input type="hidden" class="form-control input-lg" id="editarEstado" name="editarEstado" value="<?php echo $_SESSION['estado']; ?>" placeholder="Editar estado" readonly>
+
+                <input type="hidden" class="form-control input-lg" id="editarPerfil" name="editarPerfil" value="<?php echo $_SESSION['perfil']; ?>" placeholder="Editar estado" readonly>
 
               </div>
 
@@ -119,7 +139,7 @@
 
         <div class="modal-footer">
 
-          <button type="submit" class="btn btn-primary">Modificar usuario</button>
+          <button type="submit" class="btn btn-primary" id="editarPerfil">Modificar usuario</button>
 
         </div>
 

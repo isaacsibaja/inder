@@ -261,6 +261,8 @@ MODAL AGREGAR INSTITUTO
 
               </div>
 
+              <small>Pie de página debe ir sin comillas.</small>
+
             </div>
 
             <!-- ENTRADA PARA SUBIR FOTO -->
