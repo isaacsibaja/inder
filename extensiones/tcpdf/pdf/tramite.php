@@ -24,9 +24,12 @@ class imprimirTramite
 
         date_default_timezone_set('America/Costa_Rica');
 
-        setlocale(LC_ALL, "es_ES");
+        //setlocale(LC_ALL, "es_ES");
+        setlocale(LC_ALL, "");
 
         $fechaActual = strftime("%A %d de %B del %Y.");
+
+        //$fechaActual = strftime("%A %d de %B del %Y.");
 
 //TRAEMOS LA INFORMACIÓN DEL TRAMITE
 

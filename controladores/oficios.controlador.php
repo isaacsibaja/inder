@@ -29,12 +29,11 @@ class ControladorOficios
                  *
                  */
 
-                $consecutivo = ModeloOficios::consecutivo_oficio();
+                //$consecutivo = ModeloOficios::consecutivo_oficio();   "oficio"               => $consecutivo,
 
                 $tabla = "oficios";
 
                 $datos = array("fecha" => $_POST["nuevaFecha"],
-                    "oficio"               => $consecutivo,
                     "dirigidoA"            => $_POST["nuevoDirigido"],
                     "asunto"               => $_POST["nuevoAsunto"],
                     "enviadoPor"           => $_POST["nuevoEnviado"],
@@ -105,7 +104,7 @@ class ControladorOficios
         if (isset($_POST["nuevoOficioAnoNuevo"])) {
 
             if (preg_match('/^[-a-zA-Z0-9 ]+$/', $_POST["nuevaFechaAnoNuevo"]) &&
-                preg_match('/^[0-9]+$/', $_POST["nuevoOficioAnoNuevo"]) &&
+                preg_match('/^[0-9 ]+$/', $_POST["nuevoOficioAnoNuevo"]) &&
                 preg_match('/^[#\.,\-a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoDirigidoAnoNuevo"]) &&
                 preg_match('/^[#\.,\-a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoAsuntoAnoNuevo"]) &&
                 preg_match('/^[-a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoEnviadoAnoNuevo"]) &&
@@ -116,6 +115,7 @@ class ControladorOficios
                 preg_match('/^[a-zA-Z0-9 ]+$/', $_POST["nuevoEstadoAnoNuevo"])) {
 
                 $tabla = "oficios";
+
 
                 $datos = array("fecha" => $_POST["nuevaFechaAnoNuevo"],
                     "oficio"               => $_POST["nuevoOficioAnoNuevo"],

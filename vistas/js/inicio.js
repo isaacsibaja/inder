@@ -23,6 +23,7 @@ $('#finalLabor').datepicker({
 =============================================*/
 
 $('.inicioHoraLabor').clockpicker();
+//{ twelvehour: true }
 
 $('.finalHoraLabor').clockpicker();
 

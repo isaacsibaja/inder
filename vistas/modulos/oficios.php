@@ -605,9 +605,6 @@ foreach ($estados as $key => $value) {
 
             </div>
 
-
-
-
           </div>
 
         </div>
@@ -712,7 +709,8 @@ MODAL AGREGAR OFICIO EN NUMERO UNO PARA AÑO NUEVO
 
             </div>
 
-            <!-- ENTRADA PARA EL OFICIO -->
+            <!-- ENTRADA PARA EL OFICIO 
+
 
             <div class="form-group">
 
@@ -727,6 +725,13 @@ MODAL AGREGAR OFICIO EN NUMERO UNO PARA AÑO NUEVO
               </div>
 
             </div>
+
+
+          -->
+
+          <input type="hidden" class="form-control input-lg" id="nuevoOficioAnoNuevo" name="nuevoOficioAnoNuevo" value="1" required>
+
+            
 
             <!-- ENTRADA PARA DIRIGIDO A -->
 
@@ -831,7 +836,7 @@ foreach ($estados as $key => $value) {
                   </div>
 
 
-            <!-- ENTRADA PARA SEGUIMIENTO -->
+            <!-- ENTRADA PARA SEGUIMIENTO 
 
             <div class="formulario" align="center">
 
@@ -846,9 +851,21 @@ foreach ($estados as $key => $value) {
             </div>
 
 
+          -->
+
+
+
+
                   <h5 align="center" style="color: red">
-                    <strong>El consecutivo de este oficio empezará en 1.</strong>
+                    <strong>El consecutivo de este oficio empezará en 1.</strong> <br>
+
+                    <small align="center">Por seguridad el primer oficio siempre va a estar en seguimiento</small>
                   </h5>
+
+
+                  <input type="hidden" class="form-control" id="seguimientoAnoNuevo" name="seguimientoAnoNuevo" value="1" required>
+
+
 
 
           </div>

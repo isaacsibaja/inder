@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-12-2018 a las 00:12:15
+-- Tiempo de generación: 11-01-2019 a las 05:53:36
 -- Versión del servidor: 10.1.35-MariaDB
 -- Versión de PHP: 7.2.9
 
@@ -30,6 +30,20 @@ CREATE DEFINER=`root`@`localhost` FUNCTION `consecutivo_oficio` () RETURNS INT(1
     DECLARE num INT DEFAULT 0;
     SET num = ( SELECT oficio FROM `oficios` ORDER BY `id` DESC LIMIT 1 );
     RETURN num+1;
+END$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `ingresar_oficio` (`fecha` DATE, `ano` YEAR(4), `dirigidoA` VARCHAR(50), `asunto` VARCHAR(50), `enviadoPor` VARCHAR(50), `plazoRespuesta` DATE, `idEstado` INT, `idUsuario` INT, `seguimiento` INT) RETURNS INT(11) READS SQL DATA
+    DETERMINISTIC
+BEGIN
+DECLARE num INT;
+
+SET num = ( SELECT oficio FROM oficios ORDER BY id DESC LIMIT 1 ) + 1;
+
+IF num IS NOT NULL THEN
+INSERT INTO oficios(fecha, oficio, ano, dirigidoA, asunto, enviadoPor, plazoRespuesta, idEstado, idUsuario, seguimiento) VALUES(fecha, num, ano, dirigidoA, asunto, enviadoPor, plazoRespuesta, idEstado, idUsuario, seguimiento);
+RETURN 1;
+END IF;
+RETURN 0;
 END$$
 
 DELIMITER ;
@@ -137,15 +151,7 @@ CREATE TABLE `labores` (
 --
 
 INSERT INTO `labores` (`id`, `title`, `descripcion`, `color`, `textColor`, `start`, `end`) VALUES
-(1, 'Cumpleaños Karla', 'celebración del cumple martes', 'Coral', 'white', '2018-09-15 08:00:00', '2018-09-15 12:00:00'),
-(2, 'Vacaciones Didier', 'On vacation i will go to the beach with my familly', 'grey', 'white', '2018-10-15 08:00:00', '2018-10-19 16:00:00'),
-(3, 'Vacaciones Irma', 'Vacation', 'yellowgreen', 'white', '2018-10-22 08:00:00', '2018-10-23 16:00:00'),
-(4, 'Vacaciones Leandro', 'full vacations', 'Darkcyan', 'white', '2018-11-26 08:00:00', '2018-11-27 16:00:00'),
-(5, 'entrega equipo informatico', 'entregar', 'yellow', 'black', '2018-08-31 11:20:00', '2018-08-31 15:15:00'),
-(6, 'prueba 1', '1 modificada', 'Coral', 'white', '2018-11-06 08:00:00', '2018-11-06 16:00:00'),
-(7, 'prueba 2', '2', '', '', '2018-11-14 08:00:00', '2018-11-14 16:00:00'),
-(8, 'prueba 3', '3', 'yellowgreen', 'white', '2018-11-22 08:00:00', '2018-11-22 16:00:00'),
-(9, 'What is Lorem Ipsum?', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 'yellow', 'black', '2018-11-30 08:00:00', '2018-11-30 16:00:00');
+(1, 'Revisión Sistema', 'Sistema web', 'yellowgreen', 'white', '2019-01-11 13:00:00', '2019-01-11 14:00:00');
 
 -- --------------------------------------------------------
 
@@ -172,18 +178,8 @@ CREATE TABLE `oficios` (
 --
 
 INSERT INTO `oficios` (`id`, `fecha`, `oficio`, `ano`, `dirigidoA`, `asunto`, `enviadoPor`, `plazoRespuesta`, `idEstado`, `idUsuario`, `seguimiento`) VALUES
-(1, '2018-11-04', 1, 2018, 'Jefe de Oficina Territorial Horquetas', 'Construyendo un desarrollo rural equitativo y sostenible', 'Isaac Sibaja', '2018-11-22', 2, 1, 0),
-(2, '2018-11-04', 2, 2018, 'What  is  Lorem  Ipsum', 'Lorem  Ipsum  is  simply  dummy  text  of  the  printing  and  typesetting  industry Lorem Ipsum has been the industry', 'Didier Rodríguez', '2018-12-02', 3, 2, 0),
-(3, '2018-11-07', 3, 2018, 'Eduardo Gonzales Flores', 'The point of using Lorem Ipsum is that it has a more or less normal distribution of letters', 'Isaac Sibaja', '2018-12-05', 1, 1, 1),
-(4, '2018-11-08', 4, 2018, '4', '4', 'Isaac Sibaja', '2018-12-04', 8, 1, 1),
-(5, '2018-11-21', 5, 2018, '5', '5', 'Isaac Sibaja', '2018-11-29', 1, 1, 1),
-(6, '2018-11-21', 6, 2018, '6', '6', 'Isaac Sibaja', '2018-12-06', 8, 1, 1),
-(7, '2018-11-21', 7, 2018, '7', '7', 'Isaac Sibaja', '2018-12-07', 6, 1, 1),
-(8, '2018-11-21', 8, 2018, '8', '8', 'Isaac Sibaja', '2018-12-08', 6, 1, 1),
-(9, '2018-11-21', 9, 2018, '9', '9', 'Isaac Sibaja', '2018-12-09', 6, 1, 1),
-(10, '2018-12-17', 10, 2018, '10', '10', 'Didier Rodríguez', '2018-12-25', 1, 2, 1),
-(11, '2018-12-18', 11, 2018, '11', '11', 'Didier Rodríguez', '2018-12-31', 2, 2, 0),
-(12, '2018-12-18', 12, 2018, '12', '12', 'Didier Rodríguez', '2018-12-27', 1, 2, 0);
+(1, '2019-01-10', 1, 2019, 'ano', 'nuevo', 'Isaac Sibaja', '2019-01-31', 8, 1, 1),
+(2, '2019-01-10', 2, 2019, 'ofici 2', '2', 'Didier Rodríguez', '2019-01-23', 2, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -258,8 +254,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `usuario`, `password`, `email`, `perfil`, `foto`, `estado`, `ultimo_login`) VALUES
-(1, 'Isaac Sibaja', 'isaacsibaja', '$2a$07$asxx54ahjppf45sd87a5auGZEtGHuyZwm.Ur.FJvWLCql3nmsMbXy', 'isibaja@outlook.com', 'Administrador', 'vistas/img/usuarios/isaacsibaja/711.jpg', 1, '2018-12-17 14:51:30'),
-(2, 'Didier Rodríguez', 'drodriguez', '$2a$07$asxx54ahjppf45sd87a5auGZEtGHuyZwm.Ur.FJvWLCql3nmsMbXy', '', 'Usuario', 'vistas/img/usuarios/drodriguez/143.png', 1, '2018-12-18 21:44:49');
+(1, 'Isaac Sibaja', 'isaacsibaja', '$2a$07$asxx54ahjppf45sd87a5auGZEtGHuyZwm.Ur.FJvWLCql3nmsMbXy', 'isibaja@outlook.com', 'Administrador', 'vistas/img/usuarios/isaacsibaja/711.jpg', 1, '2019-01-10 20:17:58'),
+(2, 'Didier Rodríguez', 'drodriguez', '$2a$07$asxx54ahjppf45sd87a5auGZEtGHuyZwm.Ur.FJvWLCql3nmsMbXy', '', 'Usuario', 'vistas/img/usuarios/drodriguez/143.png', 1, '2019-01-11 04:03:35');
 
 --
 -- Índices para tablas volcadas
@@ -344,13 +340,13 @@ ALTER TABLE `instituto`
 -- AUTO_INCREMENT de la tabla `labores`
 --
 ALTER TABLE `labores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `oficios`
 --
 ALTER TABLE `oficios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `tipotramite`

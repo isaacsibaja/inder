@@ -12,10 +12,10 @@ class ModeloOficios
     public static function mdlIngresarOficio($tabla, $datos)
     {
 
-        $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(fecha, oficio, ano, dirigidoA, asunto, enviadoPor, plazoRespuesta, idEstado, idUsuario, seguimiento) VALUES (:fecha, :oficio, :ano, :dirigidoA, :asunto, :enviadoPor, :plazoRespuesta, :idEstado, :idUsuario, :seguimiento)");
+        $stmt = Conexion::conectar()->prepare("SELECT ingresar_oficio (:fecha, :ano, :dirigidoA, :asunto, :enviadoPor, :plazoRespuesta, :idEstado, :idUsuario, :seguimiento)");
 
         $stmt->bindParam(":fecha", $datos["fecha"], PDO::PARAM_STR);
-        $stmt->bindParam(":oficio", $datos["oficio"], PDO::PARAM_INT);
+        //$stmt->bindParam(":oficio", $datos["oficio"], PDO::PARAM_INT);
         $stmt->bindParam(":ano", $datos["ano"], PDO::PARAM_INT);
         $stmt->bindParam(":dirigidoA", $datos["dirigidoA"], PDO::PARAM_STR);
         $stmt->bindParam(":asunto", $datos["asunto"], PDO::PARAM_STR);
@@ -41,30 +41,6 @@ class ModeloOficios
     }
 
     /*=============================================
-    ASIGNANDO NUMERO DE OFICIO CONSULTANDO A LA BASE DE DATOS EL ULTIMO CONSECUTIVO
-    =============================================*/
-
-    public static function consecutivo_oficio()
-    {
-
-        $consecutivo_oficio = Conexion::conectar()->prepare("SELECT consecutivo_oficio() AS consecutivo_oficio");
-
-        if ($consecutivo_oficio->execute()) {
-
-            return $consecutivo_oficio;
-
-        } else {
-
-            return null;
-
-        }
-
-        $consecutivo_oficio->close();
-        $consecutivo_oficio = null;
-
-    }
-
-    /*=============================================
     CREAR OFICIO AÑO NUEVO
     =============================================*/
 
@@ -74,7 +50,7 @@ class ModeloOficios
         $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(fecha, oficio, ano, dirigidoA, asunto, enviadoPor, plazoRespuesta, idEstado, idUsuario, seguimiento) VALUES (:fecha, :oficio, :ano, :dirigidoA, :asunto, :enviadoPor, :plazoRespuesta, :idEstado, :idUsuario, :seguimiento)");
 
         $stmt->bindParam(":fecha", $datos["fecha"], PDO::PARAM_STR);
-        $stmt->bindParam(":oficio", $oficio, PDO::PARAM_INT);
+        $stmt->bindParam(":oficio", $datos["oficio"], PDO::PARAM_INT);
         $stmt->bindParam(":ano", $datos["ano"], PDO::PARAM_INT);
         $stmt->bindParam(":dirigidoA", $datos["dirigidoA"], PDO::PARAM_STR);
         $stmt->bindParam(":asunto", $datos["asunto"], PDO::PARAM_STR);

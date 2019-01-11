@@ -1,9 +1,14 @@
 /*=============================================
+ //ACTUALIZAR PAGINA CADA 5 SEGUNDOS
+=============================================*/
+
+
+/*=============================================
  //Date picker NUEVO PLAZO
 =============================================*/
 
 $('#nuevoPlazo').datepicker({
-	format: "yy-mm-dd",
+	format: "yyyy-mm-dd",
   startDate: '-0d',
   todayBtn: "linked",
   calendarWeeks: true,
@@ -15,7 +20,7 @@ $('#nuevoPlazo').datepicker({
 =============================================*/
 
 $('#nuevoPlazoAnoNuevo').datepicker({
-  format: "yy-mm-dd",
+  format: "yyyy-mm-dd",
     startDate: '-0d',
     todayBtn: "linked",
     language: "es"
@@ -36,26 +41,13 @@ $('#nuevoPlazoAnoNuevo').datepicker({
 =============================================*/
 
 $('#editarPlazo').datepicker({
-  format: "yy-mm-dd",
+  format: "yyyy-mm-dd",
     startDate: '-3d',
     todayBtn: "linked",
     autoclose: true,
     calendarWeeks: true,
     language: "es"
 });
-
-
-/*=============================================
- //Date picker EDITAR PLAZO
-
- $('#seguimiento').on('change', function(){
-   this.value = this.checked ? 1 : 0;
-   //alert(this.value);
-}).change();
-=============================================*/
-
-
-
 
 
 /*=============================================
