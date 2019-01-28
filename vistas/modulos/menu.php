@@ -60,6 +60,45 @@ if ($_SESSION["foto"] != "") {
 			</li>
 
 
+
+			<li class="treeview">
+
+				<a href="#">
+
+					<i class="fa fa-list-ul"></i>
+
+					<span>Oficios</span>
+
+					<span class="pull-right-container">
+
+						<i class="fa fa-angle-left pull-right"></i>
+
+					</span>
+
+				</a>
+
+				<ul class="treeview-menu">
+
+					<li>
+						<a href="oficios">
+							<i class="fa fa-list"></i>
+							Administrar Oficios
+						</a>
+					</li>
+
+					<li>
+						<a href="seguimiento">
+							<i class="fa fa-share"></i>
+							Seguimiento Oficios
+						</a>
+
+					</li>
+
+				</ul>
+
+			</li>
+
+
 			<li class="treeview">
 
 				<a href="#">
@@ -98,42 +137,6 @@ if ($_SESSION["foto"] != "") {
 			</li>
 
 
-			<li class="treeview">
-
-				<a href="#">
-
-					<i class="fa fa-list-ul"></i>
-
-					<span>Oficios</span>
-
-					<span class="pull-right-container">
-
-						<i class="fa fa-angle-left pull-right"></i>
-
-					</span>
-
-				</a>
-
-				<ul class="treeview-menu">
-
-					<li>
-						<a href="oficios">
-							<i class="fa fa-list"></i>
-							Administrar Oficios
-						</a>
-					</li>
-
-					<li>
-						<a href="seguimiento">
-							<i class="fa fa-share"></i>
-							Seguimiento Oficios
-						</a>
-
-					</li>
-
-				</ul>
-
-			</li>
 
 			<li class="header">CONFIGURACIÓN</li>
 

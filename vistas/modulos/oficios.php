@@ -356,9 +356,18 @@ foreach ($estados as $key => $value) {
 
         <div class="modal-footer">
 
-          <?php
-agregarOficio();
+          
+
+<!--=====================================
+        LLAMABA AL METODO
+        <?php
+//agregarOficio();
+
 ?>
+
+METDO NO USADO, DEBIDO QUE GENERE FUNTION EN BASE DE DATOS
+PARA EL CONSECUTIVO DEL OFICIO.
+        ======================================-->
 
           <!--Ingresar Año-->
           <input type="hidden" class="form-control input-lg" id="nuevoAno" name="nuevoAno"
@@ -390,37 +399,45 @@ $crearOficio->ctrCrearOficio();
 
 <!--=====================================
 METODO PARA OBTENER EL NUMERO DE OFICIO
-======================================-->
+======================================
 
-<?php
 
-function agregarOficio()
-{
+//<?php
 
-    $item  = null;
-    $valor = null;
+//function agregarOficio()
+//{
 
-    $oficios = ControladorOficios::ctrMostrarOficios($item, $valor);
+    //$item  = null;
+    //$valor = null;
 
-    if (!$oficios) {
+    //$oficios = ControladorOficios::ctrMostrarOficios($item, $valor);
 
-        echo '<input type="text" class="form-control" id="nuevoOficio" name="nuevoOficio" value="1" readonly>';
+    //if (!$oficios) {
 
-    } else {
+        //echo '<input type="text" class="form-control" id="nuevoOficio" name="nuevoOficio" value="1" readonly>';
 
-        foreach ($oficios as $key => $value) {
+    //} else {
 
-        }
+        //foreach ($oficios as $key => $value) {
 
-        $oficio = $value["oficio"] + 1;
+        //}
 
-        echo '<input type="text" class="form-control" id="nuevoOficio" name="nuevoOficio" value="' . $oficio . '" readonly>';
+        //$oficio = $value["oficio"] + 1;
 
-    }
+        //echo '<input type="text" class="form-control" id="nuevoOficio" name="nuevoOficio" value="' . $oficio . '" readonly>';
 
-}
+    //}
 
-?>
+//}
+
+//?>
+
+Este metodo esta bien, pero cuando 2 personas estaban ingresando un oficio al mismo tiempo 
+duplicaba el numero de oficio, cosa que no puede suceder. 
+
+
+-->
+
 
 
 
